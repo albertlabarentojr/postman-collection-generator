@@ -5,7 +5,7 @@
       "postman",
       "postman collection"
     ],
-    "license": "Proprietary",
+    "license": "MIT",
     "type": "project",
     "require": {
       "php": ">=7.1"
