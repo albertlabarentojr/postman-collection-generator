@@ -3,6 +3,9 @@
 Postman collection generator is a simple package for exporting collection .json file format.
 Best used to be integrated in your functional testing.
 
+## Postman Schema version
+Package currently supports https://schema.getpostman.com/json/collection/v2.0.0/docs/index.html
+
 ## Road Map
 - Be able to detect version semantic changes.
 - Be able to modify existing collection
