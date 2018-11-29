@@ -3,12 +3,13 @@
     "description": "Postman collection generator",
     "keywords": [
       "postman",
-      "postman collection"
+      "postman collection generator",
+      "postman generator"
     ],
     "license": "MIT",
     "type": "project",
     "require": {
-      "php": ">=7.1"
+      "php": ">=7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.4",
