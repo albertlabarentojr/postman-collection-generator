@@ -11,6 +11,8 @@ namespace App\Objects;
  */
 class DescriptionObject extends AbstractDataObject
 {
+    public const DEFAULT_TYPE = 'text/markdown';
+
     /**
      * @var string
      */
@@ -19,7 +21,7 @@ class DescriptionObject extends AbstractDataObject
     /**
      * @var string
      */
-    protected $type = 'text/markdown';
+    protected $type = self::DEFAULT_TYPE;
 
     /** @inheritdoc */
     public function toArray(): array

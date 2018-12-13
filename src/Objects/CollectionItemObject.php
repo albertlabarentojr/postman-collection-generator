@@ -25,11 +25,11 @@ class CollectionItemObject extends AbstractDataObject
     /**
      * Add sub item to collection item.
      *
-     * @param \App\Objects\CollectionSubItemObject $collectionSubItem
+     * @param \App\Objects\ItemObject|\App\Objects\CollectionSubItemObject $collectionSubItem
      *
      * @return \App\Objects\CollectionItemObject
      */
-    public function addItem(CollectionSubItemObject $collectionSubItem): self
+    public function addItem($collectionSubItem): self
     {
         $this->item[] = $collectionSubItem;
 
@@ -44,9 +44,9 @@ class CollectionItemObject extends AbstractDataObject
     public function toArray(): array
     {
         return [
-          'name' => $this->getName(),
-          'description' => $this->getDescription(),
-          'item' => $this->getItem()
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'item' => $this->getItem()
         ];
     }
 }

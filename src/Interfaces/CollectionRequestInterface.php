@@ -3,44 +3,15 @@ declare(strict_types=1);
 
 namespace App\Interfaces;
 
-use App\Objects\RequestObject;
-use App\Objects\ResponseObject;
-
-interface CollectionRequestInterface
+interface CollectionRequestInterface extends FillableCollectionInterface
 {
     /**
-     * Add collection request.
+     * Add request example.
      *
-     * @param string $requestName
-     * @param \App\Objects\RequestObject|null $request
-     * @param \App\Objects\ResponseObject|null $response
-     *
-     * @return \App\Interfaces\RequestExampleInterface
-     */
-    public function addRequest(
-        string $requestName,
-        ?RequestObject $request,
-        ?ResponseObject $response
-    ): RequestExampleInterface;
-
-    /**
-     * Get request name.
-     *
-     * @return string
-     */
-    public function getName(): string;
-
-    /**
-     * Set request description
+     * @param string $exampleName
+     * @param \App\Interfaces\RequestParserInterface $request
      *
      * @return \App\Interfaces\RequestExampleInterface
      */
-    public function setDescription(): RequestExampleInterface;
-
-    /**
-     * Get request description.
-     *
-     * @return string
-     */
-    public function getDescription(): string;
+    public function addRequest(string $exampleName, RequestParserInterface $request): RequestExampleInterface;
 }

@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Interfaces;
 
-interface CollectionGeneratorInterface
+interface GeneratorInterface
 {
     /**
      * Add collection.
      *
      * @param string $collectionName
      *
-     * @return \App\Interfaces\CollectionRequestInterface
+     * @return \App\Interfaces\CollectionInterface
      */
-    public function add(string $collectionName): CollectionRequestInterface;
+    public function add(string $collectionName): CollectionInterface;
 
     /**
      * Generate collection of objects as array.

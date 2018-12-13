@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace App\Interfaces;
 
-use App\Objects\CollectionSubItemObject;
 use App\Objects\RequestObject;
-use App\Objects\ResponseObject;
+use App\RequestExample;
 
 interface RequestExampleInterface
 {
@@ -13,15 +12,24 @@ interface RequestExampleInterface
      * Add request example.
      *
      * @param string $exampleName
-     * @param \App\Objects\RequestObject $request
-     * @param \App\Objects\ResponseObject $response
+     * @param \App\Interfaces\RequestParserInterface $request
      *
-     * @return \App\Objects\CollectionSubItemObject
+     * @param \App\Interfaces\ResponseParserInterface $response
+     *
+     * @return \App\Interfaces\RequestExampleInterface
      */
     public function addExample(
         string $exampleName,
-        RequestObject $request,
-        ResponseObject $response
-    ): CollectionSubItemObject;
-}
+        RequestParserInterface $request,
+        ResponseParserInterface $response
+    ): RequestExampleInterface;
 
+    /**
+     * Set example original request.
+     *
+     * @param \App\Objects\RequestObject $request
+     *
+     * @return \App\RequestExample
+     */
+    public function setOriginalRequest(RequestObject $request): RequestExample;
+}
