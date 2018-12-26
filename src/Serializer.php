@@ -17,7 +17,7 @@ class Serializer implements SerializerInterface
      */
     public function serialize($serializable): array
     {
-        if($serializable instanceof Serializable){
+        if ($serializable instanceof Serializable) {
             $serializable = $serializable->toArray();
         }
 

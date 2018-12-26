@@ -59,7 +59,7 @@ class CollectionGeneratorTest extends TestCase
 
         $restaurant = $collection->add('Restaurant');
 
-        $staffMemeber = $restaurant->addSubCollection('Staff member');
+        $staffMember = $restaurant->addSubCollection('Staff member');
 
         $restaurant->addConfig(['description' => $description]);
 
@@ -70,8 +70,8 @@ class CollectionGeneratorTest extends TestCase
         /** @var \App\Interfaces\ResponseParserInterface $staffResponseParser */
         [$staffRequestParser, $staffResponseParser] = $this->getParsers($staffRequest, $staffResponse);
 
-        $attachStaffMember = $staffMemeber->addRequest('Attach Staff member', $staffRequestParser);
-        $attachStaffMember->addExample('Attach Successful', $staffRequestParser, $staffResponseParser);
+        $attachStaffMember = $staffMember->addRequest('Add staff member to restaurant', $staffRequestParser);
+        $attachStaffMember->addExample('Create Successful', $staffRequestParser, $staffResponseParser);
 
         $staffResponseArr = $staffResponse->toArray();
 
@@ -108,9 +108,9 @@ class CollectionGeneratorTest extends TestCase
                             'name' => 'Staff member',
                             'item' => [
                                 [
-                                    'name' => 'Attach Staff member',
+                                    'name' => 'Add staff member to restaurant',
                                     'request' => $staffRequest->toArray(),
-                                    'response' => [['name' => 'Attach Successful'] + $staffResponseArr]
+                                    'response' => [['name' => 'Create Successful'] + $staffResponseArr]
                                 ]
                             ],
                             '_postman_isSubFolder' => true

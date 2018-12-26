@@ -1,2 +1,3 @@
 vendor/
 composer.lock
+tests/Generators/.phpunit.result.cache
