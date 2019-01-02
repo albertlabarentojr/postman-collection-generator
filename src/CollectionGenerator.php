@@ -55,7 +55,7 @@ class CollectionGenerator implements GeneratorInterface
      *
      * @return \App\Interfaces\CollectionRequestInterface[]
      */
-    public function all(): array
+    public function toArray(): array
     {
         return $this->serializer->serialize($this->collectionObject);
     }
@@ -67,6 +67,6 @@ class CollectionGenerator implements GeneratorInterface
      */
     public function generate(): array
     {
-        return $this->all();
+        return $this->toArray();
     }
 }

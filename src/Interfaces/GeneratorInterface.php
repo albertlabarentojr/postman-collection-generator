@@ -3,17 +3,8 @@ declare(strict_types=1);
 
 namespace App\Interfaces;
 
-interface GeneratorInterface
+interface GeneratorInterface extends Serializable
 {
-    /**
-     * Add collection.
-     *
-     * @param string $collectionName
-     *
-     * @return \App\Interfaces\CollectionInterface
-     */
-    public function add(string $collectionName): CollectionInterface;
-
     /**
      * Generate collection of objects as array.
      *
@@ -26,5 +17,5 @@ interface GeneratorInterface
      *
      * @return \App\Interfaces\CollectionRequestInterface[]
      */
-    public function all(): array;
+    public function toArray(): array;
 }

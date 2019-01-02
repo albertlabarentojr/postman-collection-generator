@@ -41,7 +41,7 @@ class CollectionGeneratorTest extends TestCase
                 ['description' => 'content-test', 'item' => [], 'name' => 'Restaurant']
             ],
             'variable' => []
-        ], $collection->all());
+        ], $collection->toArray());
     }
 
     /**
@@ -49,7 +49,7 @@ class CollectionGeneratorTest extends TestCase
      *
      * @return void
      */
-    public function testAddCollectionRequest(): void
+    public function testCollectionToArray(): void
     {
         $postmanCollection = new CollectionObject();
 
@@ -127,7 +127,7 @@ class CollectionGeneratorTest extends TestCase
             'variable' => []
         ];
 
-        self::assertEquals($expectedData, $collection->all());
+        self::assertEquals($expectedData, $collection->toArray());
     }
 
     /**
