@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Exceptions\InvalidMethodCallException;
-use Tests\App\ObjectTestCase;
+use PostmanGenerator\Exceptions\InvalidMethodCallException;
+use Tests\PostmanGenerator\ObjectTestCase;
 
 /**
- * @covers \App\Objects\AbstractDataObject
+ * @covers \PostmanGenerator\Objects\AbstractDataObject
  */
 class AbstractDataObjectObjectTest extends ObjectTestCase
 {

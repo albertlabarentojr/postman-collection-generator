@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\App;
 
-use App\Interfaces\CollectionObjectInterface;
+use PostmanGenerator\Interfaces\CollectionObjectInterface;
 
 abstract class ObjectTestCase extends TestCase
 {
@@ -26,7 +26,7 @@ abstract class ObjectTestCase extends TestCase
      *
      * @return void
      *
-     * @param \App\Interfaces\CollectionObjectInterface $collectionObject
+     * @param \PostmanGenerator\Interfaces\CollectionObjectInterface $collectionObject
      * @param array $methodMappings
      */
     protected function assertProperties(CollectionObjectInterface $collectionObject, array $methodMappings): void
@@ -53,7 +53,7 @@ abstract class ObjectTestCase extends TestCase
      */
     protected function assertToObjectArray(string $objectClass, array $data): void
     {
-        /** @var \App\Interfaces\CollectionObjectInterface $object */
+        /** @var \PostmanGenerator\Interfaces\CollectionObjectInterface $object */
         $object = new $objectClass($data);
 
         self::assertEquals($data, $object->toArray());

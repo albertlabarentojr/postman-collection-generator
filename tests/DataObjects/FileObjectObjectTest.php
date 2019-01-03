@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Objects\FileObject;
-use Tests\App\ObjectTestCase;
+use PostmanGenerator\Objects\FileObject;
+use Tests\PostmanGenerator\ObjectTestCase;
 
 class FileObjectObjectTest extends ObjectTestCase
 {

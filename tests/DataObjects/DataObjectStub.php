@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Objects\AbstractDataObject;
+use PostmanGenerator\Objects\AbstractDataObject;
 
 /**
  * @method string getDataAsString()

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Objects\ItemObject;
-use App\Objects\RequestObject;
-use App\Objects\ResponseObject;
-use Tests\App\ObjectTestCase;
+use PostmanGenerator\Objects\ItemObject;
+use PostmanGenerator\Objects\RequestObject;
+use PostmanGenerator\Objects\ResponseObject;
+use Tests\PostmanGenerator\ObjectTestCase;
 
 class ItemObjectTest extends ObjectTestCase
 {

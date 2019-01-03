@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Interfaces\PrePopulateInterface;
-use App\Objects\AbstractDataObject;
+use PostmanGenerator\Interfaces\PrePopulateInterface;
+use PostmanGenerator\Objects\AbstractDataObject;
 
 /**
  * @method null|string getObjectId()

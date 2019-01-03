@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Exceptions\InvalidRequestMethodException;
-use App\Objects\AuthObject;
-use App\Objects\DescriptionObject;
-use App\Objects\HeaderObject;
-use App\Objects\RequestBodyObject;
-use App\Objects\RequestObject;
-use App\Objects\UrlObject;
-use Tests\App\ObjectTestCase;
+use PostmanGenerator\Exceptions\InvalidRequestMethodException;
+use PostmanGenerator\Objects\AuthObject;
+use PostmanGenerator\Objects\DescriptionObject;
+use PostmanGenerator\Objects\HeaderObject;
+use PostmanGenerator\Objects\RequestBodyObject;
+use PostmanGenerator\Objects\RequestObject;
+use PostmanGenerator\Objects\UrlObject;
+use Tests\PostmanGenerator\ObjectTestCase;
 
 /**
- * @covers \App\Objects\RequestObject
+ * @covers \PostmanGenerator\Objects\RequestObject
  */
 class RequestObjectObjectTest extends ObjectTestCase
 {
@@ -22,7 +22,7 @@ class RequestObjectObjectTest extends ObjectTestCase
      *
      * @return void
      *
-     * @throws \App\Exceptions\InvalidRequestMethodException
+     * @throws \PostmanGenerator\Exceptions\InvalidRequestMethodException
      */
     public function testProperties(): void
     {

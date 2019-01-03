@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Exceptions\InvalidAuthTypeException;
-use App\Objects\AuthObject;
-use Tests\App\ObjectTestCase;
+use PostmanGenerator\Exceptions\InvalidAuthTypeException;
+use PostmanGenerator\Objects\AuthObject;
+use Tests\PostmanGenerator\ObjectTestCase;
 
 /**
- * @covers \App\Objects\AuthObject
+ * @covers \PostmanGenerator\Objects\AuthObject
  */
 class AuthObjectObjectTest extends ObjectTestCase
 {
@@ -17,7 +17,7 @@ class AuthObjectObjectTest extends ObjectTestCase
      *
      * @return void
      *
-     * @throws \App\Exceptions\InvalidAuthTypeException
+     * @throws \PostmanGenerator\Exceptions\InvalidAuthTypeException
      */
     public function testProperties(): void
     {
@@ -47,7 +47,7 @@ class AuthObjectObjectTest extends ObjectTestCase
      *
      * @return void
      *
-     * @throws \App\Exceptions\InvalidAuthTypeException
+     * @throws \PostmanGenerator\Exceptions\InvalidAuthTypeException
      */
     public function testSetTypeThrowsInvalidAuthTypeException(): void
     {
@@ -61,7 +61,7 @@ class AuthObjectObjectTest extends ObjectTestCase
      *
      * @return void
      *
-     * @throws \App\Exceptions\InvalidAuthTypeException
+     * @throws \PostmanGenerator\Exceptions\InvalidAuthTypeException
      */
     public function testToArray(): void
     {

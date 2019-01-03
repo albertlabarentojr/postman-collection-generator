@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Exceptions\InvalidModeTypeException;
-use App\Objects\FileObject;
-use App\Objects\FormParameterObject;
-use App\Objects\RequestBodyObject;
-use App\Objects\UrlObject;
-use Tests\App\ObjectTestCase;
+use PostmanGenerator\Exceptions\InvalidModeTypeException;
+use PostmanGenerator\Objects\FileObject;
+use PostmanGenerator\Objects\FormParameterObject;
+use PostmanGenerator\Objects\RequestBodyObject;
+use PostmanGenerator\Objects\UrlObject;
+use Tests\PostmanGenerator\ObjectTestCase;
 
 /**
- * @covers \App\Objects\RequestBodyObject
+ * @covers \PostmanGenerator\Objects\RequestBodyObject
  */
 class RequestBodyObjectObjectTest extends ObjectTestCase
 {
@@ -32,7 +32,7 @@ class RequestBodyObjectObjectTest extends ObjectTestCase
      *
      * @return void
      *
-     * @throws \App\Exceptions\InvalidModeTypeException
+     * @throws \PostmanGenerator\Exceptions\InvalidModeTypeException
      */
     public function testProperties(): void
     {

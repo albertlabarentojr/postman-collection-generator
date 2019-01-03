@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Objects\AuthObject;
-use App\Objects\CollectionItemObject;
-use App\Objects\CollectionObject;
-use App\Objects\InfoObject;
-use App\Objects\VariableObject;
-use Tests\App\ObjectTestCase;
+use PostmanGenerator\Objects\AuthObject;
+use PostmanGenerator\Objects\CollectionItemObject;
+use PostmanGenerator\Objects\CollectionObject;
+use PostmanGenerator\Objects\InfoObject;
+use PostmanGenerator\Objects\VariableObject;
+use Tests\PostmanGenerator\ObjectTestCase;
 
 class CollectionObjectTest extends ObjectTestCase
 {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\App;
 
-use App\Serializer;
+use PostmanGenerator\Serializer;
 
 class SerializerTest extends TestCase
 {

@@ -1,22 +1,22 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\Generators;
+namespace Tests\PostmanGenerator\Generators;
 
-use App\CollectionGenerator;
-use App\Interfaces\RequestParserInterface;
-use App\Interfaces\ResponseParserInterface;
-use App\Objects\CollectionObject;
-use App\Objects\DescriptionObject;
-use App\Objects\InfoObject;
-use App\Objects\RequestObject;
-use App\Objects\ResponseObject;
-use App\Serializer;
+use PostmanGenerator\CollectionGenerator;
+use PostmanGenerator\Interfaces\RequestParserInterface;
+use PostmanGenerator\Interfaces\ResponseParserInterface;
+use PostmanGenerator\Objects\CollectionObject;
+use PostmanGenerator\Objects\DescriptionObject;
+use PostmanGenerator\Objects\InfoObject;
+use PostmanGenerator\Objects\RequestObject;
+use PostmanGenerator\Objects\ResponseObject;
+use PostmanGenerator\Serializer;
 use Mockery\MockInterface;
-use Tests\App\TestCase;
+use Tests\PostmanGenerator\TestCase;
 
 /**
- * @covers \App\CollectionGenerator
+ * @covers \PostmanGenerator\CollectionGenerator
  */
 class CollectionGeneratorTest extends TestCase
 {
@@ -53,11 +53,11 @@ class CollectionGeneratorTest extends TestCase
      *
      * @return void
      *
-     * @throws \App\Exceptions\MissingConfigurationKeyException
+     * @throws \PostmanGenerator\Exceptions\MissingConfigurationKeyException
      */
     public function testCollectionGenerate(): void
     {
-        /** @var \App\CollectionGenerator $collection */
+        /** @var \PostmanGenerator\CollectionGenerator $collection */
         [
             $collection,
             $addStaffRequest,
@@ -90,7 +90,7 @@ class CollectionGeneratorTest extends TestCase
      */
     public function testCollectionToArray(): void
     {
-        /** @var \App\CollectionGenerator $collection */
+        /** @var \PostmanGenerator\CollectionGenerator $collection */
         [
             $collection,
             $addStaffRequest,
@@ -129,8 +129,8 @@ class CollectionGeneratorTest extends TestCase
      * @param string $requestName
      * @param string $exampleName
      * @param mixed $collectionRequest
-     * @param null|\App\Objects\RequestObject $request
-     * @param null|\App\Objects\ResponseObject $response
+     * @param null|\PostmanGenerator\Objects\RequestObject $request
+     * @param null|\PostmanGenerator\Objects\ResponseObject $response
      *
      * @return mixed[]
      */
@@ -144,17 +144,17 @@ class CollectionGeneratorTest extends TestCase
         $request = $request ?? new RequestObject();
         $response = $response ?? new ResponseObject();
 
-        /** @var \App\Interfaces\RequestParserInterface $requestParser */
-        /** @var \App\Interfaces\ResponseParserInterface $responseParser */
+        /** @var \PostmanGenerator\Interfaces\RequestParserInterface $requestParser */
+        /** @var \PostmanGenerator\Interfaces\ResponseParserInterface $responseParser */
         [$requestParser, $responseParser] = $this->getParsers($request, $response);
 
-        /** @var \App\Interfaces\RequestExampleInterface $collection */
+        /** @var \PostmanGenerator\Interfaces\RequestExampleInterface $collection */
         $collection = $collectionRequest->addRequest($requestName, $requestParser);
         $collection->addExample($exampleName, $requestParser, $responseParser);
 
         $responseArr = $response->toArray();
 
-        /** @var \App\Objects\RequestObject $requestArr */
+        /** @var \PostmanGenerator\Objects\RequestObject $requestArr */
         $requestArr = $responseArr['originalRequest'];
 
         $responseArr['originalRequest'] = $requestArr->toArray();
@@ -165,9 +165,9 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get expected data of collection as array.
      *
-     * @param \App\Objects\RequestObject $addStaffRequest
+     * @param \PostmanGenerator\Objects\RequestObject $addStaffRequest
      * @param mixed[] $staffResponseArr
-     * @param \App\Objects\RequestObject $addRestaurantReq
+     * @param \PostmanGenerator\Objects\RequestObject $addRestaurantReq
      * @param mixed[] $responseArr
      * @param null|mixed[] $additionalConfig
      *
@@ -220,8 +220,8 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get request and response parser.
      *
-     * @param null|\App\Objects\RequestObject $request
-     * @param null|\App\Objects\ResponseObject $response
+     * @param null|\PostmanGenerator\Objects\RequestObject $request
+     * @param null|\PostmanGenerator\Objects\ResponseObject $response
      *
      * @return mixed[]
      */
@@ -233,7 +233,7 @@ class CollectionGeneratorTest extends TestCase
 
         $response = $response ?? new ResponseObject();
 
-        /** @var \App\Interfaces\RequestParserInterface $requestParser */
+        /** @var \PostmanGenerator\Interfaces\RequestParserInterface $requestParser */
         $requestParser = $this->mock(
             RequestParserInterface::class,
             function (MockInterface $mock) use ($request): void {
@@ -241,7 +241,7 @@ class CollectionGeneratorTest extends TestCase
             }
         );
 
-        /** @var \App\Interfaces\ResponseParserInterface $responseParser */
+        /** @var \PostmanGenerator\Interfaces\ResponseParserInterface $responseParser */
         $responseParser = $this->mock(
             ResponseParserInterface::class,
             function (MockInterface $mock) use ($response): void {

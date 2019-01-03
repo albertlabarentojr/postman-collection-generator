@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\DataObjects;
+namespace Tests\PostmanGenerator\DataObjects;
 
-use App\Objects\DescriptionObject;
-use Tests\App\ObjectTestCase;
+use PostmanGenerator\Objects\DescriptionObject;
+use Tests\PostmanGenerator\ObjectTestCase;
 
 /**
- * @covers \App\Objects\DescriptionObject
+ * @covers \PostmanGenerator\Objects\DescriptionObject
  */
 class DescriptionObjectTest extends ObjectTestCase
 {

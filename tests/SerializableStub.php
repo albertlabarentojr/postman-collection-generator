@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\App;
 
-use App\Interfaces\Serializable;
+use PostmanGenerator\Interfaces\Serializable;
 
 class SerializableStub implements Serializable
 {
@@ -24,7 +24,7 @@ class SerializableStub implements Serializable
     /**
      * Serializable child stub.
      *
-     * @return \App\Interfaces\Serializable
+     * @return \PostmanGenerator\Interfaces\Serializable
      */
     private function getChild(): Serializable
     {
@@ -48,7 +48,7 @@ class SerializableStub implements Serializable
             /**
              * Serializable grandchild stub.
              *
-             * @return \App\Interfaces\Serializable
+             * @return \PostmanGenerator\Interfaces\Serializable
              */
             private function getGrandChild(): Serializable
             {
