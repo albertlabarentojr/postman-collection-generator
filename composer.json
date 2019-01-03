@@ -22,7 +22,7 @@
     },
     "autoload-dev": {
       "psr-4": {
-        "Tests\\App\\": "tests/"
+        "Tests\\PostmanGenerator\\": "tests/"
       }
     },
     "minimum-stability": "dev",

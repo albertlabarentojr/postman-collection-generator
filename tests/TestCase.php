@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App;
+namespace Tests\PostmanGenerator;
 
 use Closure;
 use Mockery;
