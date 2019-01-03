@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Interfaces;
+namespace PostmanGenerator\Interfaces;
 
 interface CollectionRequestInterface extends FillableCollectionInterface
 {
@@ -9,9 +9,9 @@ interface CollectionRequestInterface extends FillableCollectionInterface
      * Add request example.
      *
      * @param string $exampleName
-     * @param \App\Interfaces\RequestParserInterface $request
+     * @param \PostmanGenerator\Interfaces\RequestParserInterface $request
      *
-     * @return \App\Interfaces\RequestExampleInterface
+     * @return \PostmanGenerator\Interfaces\RequestExampleInterface
      */
     public function addRequest(string $exampleName, RequestParserInterface $request): RequestExampleInterface;
 }

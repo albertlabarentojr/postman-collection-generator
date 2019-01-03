@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
-use App\Exceptions\InvalidRequestMethodException;
+use PostmanGenerator\Exceptions\InvalidRequestMethodException;
 
 /**
  * @method null|DescriptionObject getDescription()
@@ -43,22 +43,22 @@ class RequestObject extends AbstractDataObject
         'VIEW'
     ];
 
-    /** @var \App\Objects\AuthObject */
+    /** @var \PostmanGenerator\Objects\AuthObject */
     protected $auth;
 
-    /** @var \App\Objects\RequestBodyObject */
+    /** @var \PostmanGenerator\Objects\RequestBodyObject */
     protected $body;
 
-    /** @var \App\Objects\DescriptionObject */
+    /** @var \PostmanGenerator\Objects\DescriptionObject */
     protected $description;
 
-    /** @var \App\Objects\HeaderObject */
+    /** @var \PostmanGenerator\Objects\HeaderObject */
     protected $header;
 
     /** @var string */
     protected $method;
 
-    /** @var \App\Objects\UrlObject */
+    /** @var \PostmanGenerator\Objects\UrlObject */
     protected $url;
 
     /**
@@ -83,9 +83,9 @@ class RequestObject extends AbstractDataObject
      *
      * @param string $method
      *
-     * @return \App\Objects\RequestObject
+     * @return \PostmanGenerator\Objects\RequestObject
      *
-     * @throws \App\Exceptions\InvalidRequestMethodException
+     * @throws \PostmanGenerator\Exceptions\InvalidRequestMethodException
      */
     public function setMethod(string $method): self
     {

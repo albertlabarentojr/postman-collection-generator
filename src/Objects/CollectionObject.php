@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
 /**
  * @method null|InfoObject getInfo()
@@ -15,24 +15,24 @@ namespace App\Objects;
  */
 class CollectionObject extends AbstractDataObject
 {
-    /** @var \App\Objects\AuthObject */
+    /** @var \PostmanGenerator\Objects\AuthObject */
     protected $auth;
 
-    /** @var \App\Objects\InfoObject */
+    /** @var \PostmanGenerator\Objects\InfoObject */
     protected $info;
 
-    /** @var \App\Objects\CollectionItemObject[] */
+    /** @var \PostmanGenerator\Objects\CollectionItemObject[] */
     protected $item = [];
 
-    /** @var \App\Objects\VariableObject[] */
+    /** @var \PostmanGenerator\Objects\VariableObject[] */
     protected $variable = [];
 
     /**
      * Add Collection item.
      *
-     * @param \App\Objects\CollectionItemObject $item
+     * @param \PostmanGenerator\Objects\CollectionItemObject $item
      *
-     * @return \App\Objects\CollectionObject
+     * @return \PostmanGenerator\Objects\CollectionObject
      */
     public function addItem(CollectionItemObject $item): self
     {
@@ -44,9 +44,9 @@ class CollectionObject extends AbstractDataObject
     /**
      * Add variable item.
      *
-     * @param \App\Objects\VariableObject $variable
+     * @param \PostmanGenerator\Objects\VariableObject $variable
      *
-     * @return \App\Objects\CollectionObject
+     * @return \PostmanGenerator\Objects\CollectionObject
      */
     public function addVariable(VariableObject $variable): self
     {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
 /**
  * @method DescriptionObject getDescription()
@@ -15,7 +15,7 @@ namespace App\Objects;
  */
 class HeaderObject extends AbstractDataObject
 {
-    /** @var \App\Objects\DescriptionObject */
+    /** @var \PostmanGenerator\Objects\DescriptionObject */
     protected $description;
 
     /** @var bool */

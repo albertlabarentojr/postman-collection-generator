@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
-use App\Interfaces\PrePopulateInterface;
+use PostmanGenerator\Interfaces\PrePopulateInterface;
 
 /**
  * @method null|string getResponseId()
@@ -41,7 +41,7 @@ class ResponseObject extends AbstractDataObject implements PrePopulateInterface
     /** @var string */
     protected $name;
 
-    /** @var \App\Objects\RequestObject */
+    /** @var \PostmanGenerator\Objects\RequestObject */
     protected $originalRequest;
 
     /** @var string */

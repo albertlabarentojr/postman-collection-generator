@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
-use App\Exceptions\InvalidAuthTypeException;
+use PostmanGenerator\Exceptions\InvalidAuthTypeException;
 
 /**
  * @method string getType()
@@ -45,7 +45,7 @@ class AuthObject extends AbstractDataObject
      *
      * @param mixed[] $value
      *
-     * @return \App\Objects\AuthObject
+     * @return \PostmanGenerator\Objects\AuthObject
      */
     public function setConfig(array $value): self
     {
@@ -59,9 +59,9 @@ class AuthObject extends AbstractDataObject
      *
      * @param string $type
      *
-     * @return \App\Objects\AuthObject
+     * @return \PostmanGenerator\Objects\AuthObject
      *
-     * @throws \App\Exceptions\InvalidAuthTypeException
+     * @throws \PostmanGenerator\Exceptions\InvalidAuthTypeException
      */
     public function setType(string $type): self
     {

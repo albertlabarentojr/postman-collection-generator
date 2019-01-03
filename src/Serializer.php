@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace PostmanGenerator;
 
-use App\Interfaces\Serializable;
-use App\Interfaces\SerializerInterface;
+use PostmanGenerator\Interfaces\Serializable;
+use PostmanGenerator\Interfaces\SerializerInterface;
 
 class Serializer implements SerializerInterface
 {
     /**
      * Serialize an object entity as array.
      *
-     * @param mixed[]|\App\Interfaces\Serializable $serializable
+     * @param mixed[]|\PostmanGenerator\Interfaces\Serializable $serializable
      *
      * @return mixed[]
      */

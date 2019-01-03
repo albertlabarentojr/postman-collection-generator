@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
-use App\Interfaces\PrePopulateInterface;
+use PostmanGenerator\Interfaces\PrePopulateInterface;
 
 /**
  * @method null|string getVariableId()
@@ -27,7 +27,7 @@ class VariableObject extends AbstractDataObject implements PrePopulateInterface
     /** @var string */
     public const ID_PREFIX = 'variable_';
 
-    /** @var \App\Objects\DescriptionObject */
+    /** @var \PostmanGenerator\Objects\DescriptionObject */
     protected $description;
 
     /** @var bool */

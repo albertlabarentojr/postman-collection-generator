@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
 /**
  * @method null|string getName()
@@ -14,7 +14,7 @@ class CollectionSubItemObject extends AbstractDataObject
     /** @var string */
     protected $name;
 
-    /** @var \App\Objects\ItemObject[] */
+    /** @var \PostmanGenerator\Objects\ItemObject[] */
     protected $item = [];
 
     /**
@@ -34,9 +34,9 @@ class CollectionSubItemObject extends AbstractDataObject
     /**
      * Add sub collection item.
      *
-     * @param \App\Objects\ItemObject $item
+     * @param \PostmanGenerator\Objects\ItemObject $item
      *
-     * @return \App\Objects\CollectionSubItemObject
+     * @return \PostmanGenerator\Objects\CollectionSubItemObject
      */
     public function addItem(ItemObject $item): self
     {

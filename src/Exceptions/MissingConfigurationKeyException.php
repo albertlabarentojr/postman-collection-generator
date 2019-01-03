@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Exceptions;
+namespace PostmanGenerator\Exceptions;
 
 class MissingConfigurationKeyException extends AbstractBaseException
 {

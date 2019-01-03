@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
-use App\Exceptions\InvalidMethodCallException;
-use App\Interfaces\CollectionObjectInterface;
-use App\Interfaces\PrePopulateInterface;
+use PostmanGenerator\Exceptions\InvalidMethodCallException;
+use PostmanGenerator\Interfaces\CollectionObjectInterface;
+use PostmanGenerator\Interfaces\PrePopulateInterface;
 
 abstract class AbstractDataObject implements CollectionObjectInterface
 {
@@ -136,7 +136,7 @@ abstract class AbstractDataObject implements CollectionObjectInterface
      * @param string $property
      * @param $value
      *
-     * @return \App\Objects\AbstractDataObject
+     * @return \PostmanGenerator\Objects\AbstractDataObject
      */
     private function set(string $property, $value): self
     {

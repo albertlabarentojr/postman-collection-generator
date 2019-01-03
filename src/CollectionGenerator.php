@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace PostmanGenerator;
 
-use App\Exceptions\MissingConfigurationKeyException;
-use App\Interfaces\CollectionInterface;
-use App\Interfaces\GeneratorInterface;
-use App\Interfaces\SerializerInterface;
-use App\Objects\CollectionItemObject;
-use App\Objects\CollectionObject;
+use PostmanGenerator\Exceptions\MissingConfigurationKeyException;
+use PostmanGenerator\Interfaces\CollectionInterface;
+use PostmanGenerator\Interfaces\GeneratorInterface;
+use PostmanGenerator\Interfaces\SerializerInterface;
+use PostmanGenerator\Objects\CollectionItemObject;
+use PostmanGenerator\Objects\CollectionObject;
 
 class CollectionGenerator implements GeneratorInterface
 {
     /**
-     * @var \App\Objects\CollectionObject
+     * @var \PostmanGenerator\Objects\CollectionObject
      */
     private $collectionObject;
 
@@ -23,15 +23,15 @@ class CollectionGenerator implements GeneratorInterface
     private $configuration;
 
     /**
-     * @var \App\Interfaces\SerializerInterface
+     * @var \PostmanGenerator\Interfaces\SerializerInterface
      */
     private $serializer;
 
     /**
      * CollectionGenerator constructor.
      *
-     * @param \App\Objects\CollectionObject $collectionObject
-     * @param \App\Interfaces\SerializerInterface $serializer
+     * @param \PostmanGenerator\Objects\CollectionObject $collectionObject
+     * @param \PostmanGenerator\Interfaces\SerializerInterface $serializer
      * @param array|null $configuration
      */
     public function __construct(
@@ -49,7 +49,7 @@ class CollectionGenerator implements GeneratorInterface
      *
      * @param string $collectionName
      *
-     * @return \App\Interfaces\CollectionInterface
+     * @return \PostmanGenerator\Interfaces\CollectionInterface
      */
     public function add(string $collectionName): CollectionInterface
     {
@@ -66,7 +66,7 @@ class CollectionGenerator implements GeneratorInterface
      *
      * @return void
      *
-     * @throws \App\Exceptions\MissingConfigurationKeyException
+     * @throws \PostmanGenerator\Exceptions\MissingConfigurationKeyException
      */
     public function generate(): void
     {
@@ -84,7 +84,7 @@ class CollectionGenerator implements GeneratorInterface
     /**
      * Get collection object.
      *
-     * @return \App\Objects\CollectionObject
+     * @return \PostmanGenerator\Objects\CollectionObject
      */
     public function getCollection(): CollectionObject
     {
@@ -94,7 +94,7 @@ class CollectionGenerator implements GeneratorInterface
     /**
      * Get all request collections.
      *
-     * @return \App\Interfaces\CollectionRequestInterface[]
+     * @return \PostmanGenerator\Interfaces\CollectionRequestInterface[]
      */
     public function toArray(): array
     {

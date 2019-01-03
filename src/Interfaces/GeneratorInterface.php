@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Interfaces;
+namespace PostmanGenerator\Interfaces;
 
-use App\Objects\CollectionObject;
+use PostmanGenerator\Objects\CollectionObject;
 
 interface GeneratorInterface extends Serializable
 {
@@ -17,14 +17,14 @@ interface GeneratorInterface extends Serializable
     /**
      * Get all request collections.
      *
-     * @return \App\Interfaces\CollectionRequestInterface[]
+     * @return \PostmanGenerator\Interfaces\CollectionRequestInterface[]
      */
     public function toArray(): array;
 
     /**
      * Get collection object.
      *
-     * @return \App\Objects\CollectionObject
+     * @return \PostmanGenerator\Objects\CollectionObject
      */
     public function getCollection(): CollectionObject;
 }

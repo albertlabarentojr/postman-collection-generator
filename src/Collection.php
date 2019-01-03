@@ -1,29 +1,29 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace PostmanGenerator;
 
-use App\Interfaces\CollectionInterface;
-use App\Interfaces\CollectionRequestInterface;
-use App\Interfaces\RequestExampleInterface;
-use App\Interfaces\RequestParserInterface;
-use App\Objects\CollectionItemObject;
-use App\Objects\CollectionSubItemObject;
-use App\Objects\DescriptionObject;
-use App\Objects\ItemObject;
-use App\Objects\RequestObject;
+use PostmanGenerator\Interfaces\CollectionInterface;
+use PostmanGenerator\Interfaces\CollectionRequestInterface;
+use PostmanGenerator\Interfaces\RequestExampleInterface;
+use PostmanGenerator\Interfaces\RequestParserInterface;
+use PostmanGenerator\Objects\CollectionItemObject;
+use PostmanGenerator\Objects\CollectionSubItemObject;
+use PostmanGenerator\Objects\DescriptionObject;
+use PostmanGenerator\Objects\ItemObject;
+use PostmanGenerator\Objects\RequestObject;
 
 class Collection implements CollectionInterface
 {
     /**
-     * @var \App\Objects\CollectionItemObject
+     * @var \PostmanGenerator\Objects\CollectionItemObject
      */
     private $collectionItem;
 
     /**
      * Collection constructor.
      *
-     * @param \App\Objects\CollectionItemObject $collectionItem
+     * @param \PostmanGenerator\Objects\CollectionItemObject $collectionItem
      */
     public function __construct(CollectionItemObject $collectionItem)
     {
@@ -35,7 +35,7 @@ class Collection implements CollectionInterface
      *
      * @param string $requestName
      *
-     * @return \App\Interfaces\CollectionRequestInterface
+     * @return \PostmanGenerator\Interfaces\CollectionRequestInterface
      */
     public function addSubCollection(string $requestName): CollectionRequestInterface
     {
@@ -60,9 +60,9 @@ class Collection implements CollectionInterface
     /**
      * Set request description.
      *
-     * @param \App\Objects\DescriptionObject $description
+     * @param \PostmanGenerator\Objects\DescriptionObject $description
      *
-     * @return \App\Interfaces\CollectionInterface
+     * @return \PostmanGenerator\Interfaces\CollectionInterface
      */
     public function setDescription(DescriptionObject $description): CollectionInterface
     {
@@ -75,9 +75,9 @@ class Collection implements CollectionInterface
      * Add collection request.
      *
      * @param string $exampleName
-     * @param \App\Interfaces\RequestParserInterface $request
+     * @param \PostmanGenerator\Interfaces\RequestParserInterface $request
      *
-     * @return \App\Interfaces\RequestExampleInterface
+     * @return \PostmanGenerator\Interfaces\RequestExampleInterface
      */
     public function addRequest(string $exampleName, RequestParserInterface $request): RequestExampleInterface
     {

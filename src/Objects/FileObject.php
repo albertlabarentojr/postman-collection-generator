@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
 /**
  * @method null|string getSource()

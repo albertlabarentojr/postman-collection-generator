@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
-use App\Interfaces\PrePopulateInterface;
+use PostmanGenerator\Interfaces\PrePopulateInterface;
 
 /**
  * @method null|string getName()
@@ -44,7 +44,7 @@ class InfoObject extends AbstractDataObject implements PrePopulateInterface
      *
      * @param string $postmanId
      *
-     * @return \App\Objects\InfoObject
+     * @return \PostmanGenerator\Objects\InfoObject
      */
     public function setInfoId(string $postmanId): self
     {

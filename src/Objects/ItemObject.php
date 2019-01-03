@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
 /**
  * @method null|string getName()
@@ -16,18 +16,18 @@ class ItemObject extends AbstractDataObject
     /** @var string */
     protected $name;
 
-    /** @var \App\Objects\RequestObject */
+    /** @var \PostmanGenerator\Objects\RequestObject */
     protected $request;
 
-    /** @var \App\Objects\ResponseObject[] */
+    /** @var \PostmanGenerator\Objects\ResponseObject[] */
     protected $response = [];
 
     /**
      * Add response.
      *
-     * @param \App\Objects\ResponseObject $response
+     * @param \PostmanGenerator\Objects\ResponseObject $response
      *
-     * @return \App\Objects\ItemObject
+     * @return \PostmanGenerator\Objects\ItemObject
      */
     public function addResponse(ResponseObject $response): self
     {

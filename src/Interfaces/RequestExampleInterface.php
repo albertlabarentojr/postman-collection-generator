@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Interfaces;
+namespace PostmanGenerator\Interfaces;
 
-use App\Objects\RequestObject;
-use App\RequestExample;
+use PostmanGenerator\Objects\RequestObject;
+use PostmanGenerator\RequestExample;
 
 interface RequestExampleInterface
 {
@@ -12,11 +12,11 @@ interface RequestExampleInterface
      * Add request example.
      *
      * @param string $exampleName
-     * @param \App\Interfaces\RequestParserInterface $request
+     * @param \PostmanGenerator\Interfaces\RequestParserInterface $request
      *
-     * @param \App\Interfaces\ResponseParserInterface $response
+     * @param \PostmanGenerator\Interfaces\ResponseParserInterface $response
      *
-     * @return \App\Interfaces\RequestExampleInterface
+     * @return \PostmanGenerator\Interfaces\RequestExampleInterface
      */
     public function addExample(
         string $exampleName,
@@ -27,9 +27,9 @@ interface RequestExampleInterface
     /**
      * Set example original request.
      *
-     * @param \App\Objects\RequestObject $request
+     * @param \PostmanGenerator\Objects\RequestObject $request
      *
-     * @return \App\RequestExample
+     * @return \PostmanGenerator\RequestExample
      */
     public function setOriginalRequest(RequestObject $request): RequestExample;
 }

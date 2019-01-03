@@ -1,29 +1,29 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace PostmanGenerator;
 
-use App\Interfaces\RequestExampleInterface;
-use App\Interfaces\RequestParserInterface;
-use App\Interfaces\ResponseParserInterface;
-use App\Objects\ItemObject;
-use App\Objects\RequestObject;
+use PostmanGenerator\Interfaces\RequestExampleInterface;
+use PostmanGenerator\Interfaces\RequestParserInterface;
+use PostmanGenerator\Interfaces\ResponseParserInterface;
+use PostmanGenerator\Objects\ItemObject;
+use PostmanGenerator\Objects\RequestObject;
 
 class RequestExample implements RequestExampleInterface
 {
     /**
-     * @var \App\Objects\ItemObject
+     * @var \PostmanGenerator\Objects\ItemObject
      */
     private $itemObject;
 
-    /** @var \App\Objects\RequestObject */
+    /** @var \PostmanGenerator\Objects\RequestObject */
     private $originalRequest;
 
     /**
      * RequestExample constructor.
      *
-     * @param \App\Objects\ItemObject $itemObject
-     * @param \App\Interfaces\RequestParserInterface $request
+     * @param \PostmanGenerator\Objects\ItemObject $itemObject
+     * @param \PostmanGenerator\Interfaces\RequestParserInterface $request
      */
     public function __construct(ItemObject $itemObject, RequestParserInterface $request)
     {
@@ -35,10 +35,10 @@ class RequestExample implements RequestExampleInterface
      * Add request example.
      *
      * @param string $exampleName
-     * @param \App\Interfaces\RequestParserInterface $requestParser
-     * @param \App\Interfaces\ResponseParserInterface $responseParser
+     * @param \PostmanGenerator\Interfaces\RequestParserInterface $requestParser
+     * @param \PostmanGenerator\Interfaces\ResponseParserInterface $responseParser
      *
-     * @return \App\Interfaces\RequestExampleInterface
+     * @return \PostmanGenerator\Interfaces\RequestExampleInterface
      */
     public function addExample(
         string $exampleName,
@@ -59,9 +59,9 @@ class RequestExample implements RequestExampleInterface
     /**
      * Set example original request.
      *
-     * @param \App\Objects\RequestObject $request
+     * @param \PostmanGenerator\Objects\RequestObject $request
      *
-     * @return \App\RequestExample
+     * @return \PostmanGenerator\RequestExample
      */
     public function setOriginalRequest(RequestObject $request): RequestExample
     {

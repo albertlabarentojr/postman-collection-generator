@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace PostmanGenerator\Objects;
 
-use App\Exceptions\InvalidModeTypeException;
+use PostmanGenerator\Exceptions\InvalidModeTypeException;
 
 /**
  * @method null|bool isDisabled()
@@ -25,10 +25,10 @@ class RequestBodyObject extends AbstractDataObject
     /** @var bool */
     protected $disabled;
 
-    /** @var \App\Objects\FileObject */
+    /** @var \PostmanGenerator\Objects\FileObject */
     protected $file;
 
-    /** @var \App\Objects\FormParameterObject */
+    /** @var \PostmanGenerator\Objects\FormParameterObject */
     protected $formParameter;
 
     /** @var string */
@@ -37,7 +37,7 @@ class RequestBodyObject extends AbstractDataObject
     /** @var string */
     protected $raw;
 
-    /** @var \App\Objects\UrlObject */
+    /** @var \PostmanGenerator\Objects\UrlObject */
     protected $url;
 
     /**
@@ -45,9 +45,9 @@ class RequestBodyObject extends AbstractDataObject
      *
      * @param string $mode
      *
-     * @return \App\Objects\RequestBodyObject
+     * @return \PostmanGenerator\Objects\RequestBodyObject
      *
-     * @throws \App\Exceptions\InvalidModeTypeException
+     * @throws \PostmanGenerator\Exceptions\InvalidModeTypeException
      */
     public function setMode(string $mode): self
     {

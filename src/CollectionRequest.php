@@ -1,26 +1,26 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace PostmanGenerator;
 
-use App\Interfaces\CollectionRequestInterface;
-use App\Interfaces\RequestExampleInterface;
-use App\Interfaces\RequestParserInterface;
-use App\Objects\CollectionSubItemObject;
-use App\Objects\ItemObject;
-use App\Objects\RequestObject;
+use PostmanGenerator\Interfaces\CollectionRequestInterface;
+use PostmanGenerator\Interfaces\RequestExampleInterface;
+use PostmanGenerator\Interfaces\RequestParserInterface;
+use PostmanGenerator\Objects\CollectionSubItemObject;
+use PostmanGenerator\Objects\ItemObject;
+use PostmanGenerator\Objects\RequestObject;
 
 class CollectionRequest implements CollectionRequestInterface
 {
     /**
-     * @var \App\Objects\CollectionSubItemObject
+     * @var \PostmanGenerator\Objects\CollectionSubItemObject
      */
     private $subItem;
 
     /**
      * CollectionRequest constructor.
      *
-     * @param \App\Objects\CollectionSubItemObject $subItem
+     * @param \PostmanGenerator\Objects\CollectionSubItemObject $subItem
      */
     public function __construct(CollectionSubItemObject $subItem)
     {
@@ -31,9 +31,9 @@ class CollectionRequest implements CollectionRequestInterface
      * Add request example.
      *
      * @param string $exampleName
-     * @param \App\Interfaces\RequestParserInterface $request
+     * @param \PostmanGenerator\Interfaces\RequestParserInterface $request
      *
-     * @return \App\Interfaces\RequestExampleInterface
+     * @return \PostmanGenerator\Interfaces\RequestExampleInterface
      */
     public function addRequest(string $exampleName, RequestParserInterface $request): RequestExampleInterface
     {

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Interfaces;
+namespace PostmanGenerator\Interfaces;
 
-use App\Objects\DescriptionObject;
+use PostmanGenerator\Objects\DescriptionObject;
 
 interface CollectionInterface extends FillableCollectionInterface
 {
@@ -11,9 +11,9 @@ interface CollectionInterface extends FillableCollectionInterface
      * Add collection request.
      *
      * @param string $exampleName
-     * @param \App\Interfaces\RequestParserInterface $request
+     * @param \PostmanGenerator\Interfaces\RequestParserInterface $request
      *
-     * @return \App\Interfaces\RequestExampleInterface
+     * @return \PostmanGenerator\Interfaces\RequestExampleInterface
      */
     public function addRequest(string $exampleName, RequestParserInterface $request): RequestExampleInterface;
 
@@ -22,7 +22,7 @@ interface CollectionInterface extends FillableCollectionInterface
      *
      * @param string $requestName
      *
-     * @return \App\Interfaces\CollectionRequestInterface
+     * @return \PostmanGenerator\Interfaces\CollectionRequestInterface
      */
     public function addSubCollection(string $requestName): CollectionRequestInterface;
 
@@ -36,9 +36,9 @@ interface CollectionInterface extends FillableCollectionInterface
     /**
      * Set request description.
      *
-     * @param \App\Objects\DescriptionObject $description
+     * @param \PostmanGenerator\Objects\DescriptionObject $description
      *
-     * @return \App\Interfaces\CollectionInterface
+     * @return \PostmanGenerator\Interfaces\CollectionInterface
      */
     public function setDescription(DescriptionObject $description): CollectionInterface;
 }
