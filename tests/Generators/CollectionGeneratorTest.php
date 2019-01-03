@@ -129,8 +129,8 @@ class CollectionGeneratorTest extends TestCase
      * @param string $requestName
      * @param string $exampleName
      * @param mixed $collectionRequest
-     * @param \App\Objects\RequestObject|null $request
-     * @param \App\Objects\ResponseObject|null $response
+     * @param null|\App\Objects\RequestObject $request
+     * @param null|\App\Objects\ResponseObject $response
      *
      * @return mixed[]
      */
