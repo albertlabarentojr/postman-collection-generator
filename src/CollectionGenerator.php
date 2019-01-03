@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Exceptions\MissingConfigurationKeyException;
 use App\Interfaces\CollectionInterface;
 use App\Interfaces\GeneratorInterface;
 use App\Interfaces\SerializerInterface;
@@ -17,6 +18,11 @@ class CollectionGenerator implements GeneratorInterface
     private $collectionObject;
 
     /**
+     * @var array|null
+     */
+    private $configuration;
+
+    /**
      * @var \App\Interfaces\SerializerInterface
      */
     private $serializer;
@@ -26,11 +32,16 @@ class CollectionGenerator implements GeneratorInterface
      *
      * @param \App\Objects\CollectionObject $collectionObject
      * @param \App\Interfaces\SerializerInterface $serializer
+     * @param array|null $configuration
      */
-    public function __construct(CollectionObject $collectionObject, SerializerInterface $serializer)
-    {
+    public function __construct(
+        CollectionObject $collectionObject,
+        SerializerInterface $serializer,
+        ?array $configuration = null
+    ) {
         $this->collectionObject = $collectionObject;
         $this->serializer = $serializer;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -51,6 +62,36 @@ class CollectionGenerator implements GeneratorInterface
     }
 
     /**
+     * Generate collection of objects as array.
+     *
+     * @return void
+     *
+     * @throws \App\Exceptions\MissingConfigurationKeyException
+     */
+    public function generate(): void
+    {
+        $exportDirectory = $this->configuration['export_directory'] ?? null;
+
+        if ($exportDirectory === null || empty($exportDirectory) === true) {
+            throw new MissingConfigurationKeyException('Missing Configuration: [export_directory]');
+        }
+
+        $file = \fopen($this->configuration['export_directory'], 'wb');
+        \fwrite($file, \json_encode($this->toArray()));
+        \fclose($file);
+    }
+
+    /**
+     * Get collection object.
+     *
+     * @return \App\Objects\CollectionObject
+     */
+    public function getCollection(): CollectionObject
+    {
+        return $this->collectionObject;
+    }
+
+    /**
      * Get all request collections.
      *
      * @return \App\Interfaces\CollectionRequestInterface[]
@@ -58,15 +99,5 @@ class CollectionGenerator implements GeneratorInterface
     public function toArray(): array
     {
         return $this->serializer->serialize($this->collectionObject);
-    }
-
-    /**
-     * Generate collection of objects as array.
-     *
-     * @return mixed[]
-     */
-    public function generate(): array
-    {
-        return $this->toArray();
     }
 }

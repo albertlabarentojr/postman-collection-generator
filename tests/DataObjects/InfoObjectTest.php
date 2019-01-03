@@ -20,10 +20,8 @@ class InfoObjectTest extends ObjectTestCase
         $info->setName('edining v2');
         $info->setDescription('Description as string');
         $info->setSchema('https://postman.collection.json');
-        $info->setPostmanId('postman-id');
 
         $this->assertProperties($info, [
-            'getPostmanId' => 'postman-id',
             'getName' => 'edining v2',
             'getDescription' => 'Description as string',
             'getSchema' => 'https://postman.collection.json'
@@ -37,11 +35,14 @@ class InfoObjectTest extends ObjectTestCase
      */
     public function testToArray(): void
     {
-        $this->assertToObjectArray(InfoObject::class, [
-            '_postman_id' => 'postman-id',
+        $data = [
             'name' => 'edining v2',
             'description' => 'Description as string',
-            'schema' => 'https://postman.collection.json'
-        ]);
+            'schema' => 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'
+        ];
+
+        $info = new InfoObject($data);
+
+        self::assertEquals($data + ['_postman_id' => $info->getPostmanId()], $info->toArray());
     }
 }

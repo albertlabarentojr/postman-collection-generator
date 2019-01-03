@@ -3,14 +3,16 @@ declare(strict_types=1);
 
 namespace App\Interfaces;
 
+use App\Objects\CollectionObject;
+
 interface GeneratorInterface extends Serializable
 {
     /**
      * Generate collection of objects as array.
      *
-     * @return mixed[]
+     * @return void
      */
-    public function generate(): array;
+    public function generate(): void;
 
     /**
      * Get all request collections.
@@ -18,4 +20,11 @@ interface GeneratorInterface extends Serializable
      * @return \App\Interfaces\CollectionRequestInterface[]
      */
     public function toArray(): array;
+
+    /**
+     * Get collection object.
+     *
+     * @return \App\Objects\CollectionObject
+     */
+    public function getCollection(): CollectionObject;
 }

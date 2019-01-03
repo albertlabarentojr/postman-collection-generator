@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Objects;
 
+use App\Interfaces\PrePopulateInterface;
+
 /**
  * @method null|string getName()
  * @method null|string getDescription()
@@ -13,7 +15,7 @@ namespace App\Objects;
  * @method self setSchema(string $schema)
  * @method self setPostmanId(string $id)
  */
-class InfoObject extends AbstractDataObject
+class InfoObject extends AbstractDataObject implements PrePopulateInterface
 {
     /** @var string */
     protected $description;
@@ -28,7 +30,19 @@ class InfoObject extends AbstractDataObject
     protected $schema;
 
     /**
+     * Fill properties before mass assignment.
+     *
+     * @return void
+     */
+    public function beforeFill(): void
+    {
+        $this->postmanId = $this->generateId('postman_collection');
+    }
+
+    /**
      * Set postman info id.
+     *
+     * @param string $postmanId
      *
      * @return \App\Objects\InfoObject
      */
