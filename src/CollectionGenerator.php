@@ -6,9 +6,11 @@ namespace PostmanGenerator;
 use PostmanGenerator\Exceptions\MissingConfigurationKeyException;
 use PostmanGenerator\Interfaces\CollectionInterface;
 use PostmanGenerator\Interfaces\GeneratorInterface;
+use PostmanGenerator\Interfaces\Serializable;
 use PostmanGenerator\Interfaces\SerializerInterface;
 use PostmanGenerator\Objects\CollectionItemObject;
 use PostmanGenerator\Objects\CollectionObject;
+use PostmanGenerator\Objects\Config\ConfigObject;
 
 class CollectionGenerator implements GeneratorInterface
 {
@@ -18,7 +20,7 @@ class CollectionGenerator implements GeneratorInterface
     private $collectionObject;
 
     /**
-     * @var array|null
+     * @var \PostmanGenerator\Objects\Config\ConfigObject
      */
     private $configuration;
 
@@ -32,12 +34,12 @@ class CollectionGenerator implements GeneratorInterface
      *
      * @param \PostmanGenerator\Objects\CollectionObject $collectionObject
      * @param \PostmanGenerator\Interfaces\SerializerInterface $serializer
-     * @param array|null $configuration
+     * @param \PostmanGenerator\Objects\Config\ConfigObject $configuration
      */
     public function __construct(
         CollectionObject $collectionObject,
         SerializerInterface $serializer,
-        ?array $configuration = null
+        ConfigObject $configuration
     ) {
         $this->collectionObject = $collectionObject;
         $this->serializer = $serializer;
@@ -62,6 +64,21 @@ class CollectionGenerator implements GeneratorInterface
     }
 
     /**
+     * Export serializable object to .json file.
+     *
+     * @param string $filename
+     * @param \PostmanGenerator\Interfaces\Serializable $serializable
+     *
+     * @return void
+     */
+    public function export(string $filename, Serializable $serializable): void
+    {
+        $file = \fopen($filename, 'wb');
+        \fwrite($file, \json_encode($serializable->toArray()));
+        \fclose($file);
+    }
+
+    /**
      * Generate collection of objects as array.
      *
      * @return void
@@ -70,15 +87,13 @@ class CollectionGenerator implements GeneratorInterface
      */
     public function generate(): void
     {
-        $exportDirectory = $this->configuration['export_directory'] ?? null;
+        $exportDirectory = $this->configuration->getExportDirectory() ?? null;
 
-        if ($exportDirectory === null || empty($exportDirectory) === true) {
+        if ($exportDirectory === null) {
             throw new MissingConfigurationKeyException('Missing Configuration: [export_directory]');
         }
 
-        $file = \fopen($this->configuration['export_directory'], 'wb');
-        \fwrite($file, \json_encode($this->toArray()));
-        \fclose($file);
+        $this->export($exportDirectory, $this);
     }
 
     /**
