@@ -74,7 +74,14 @@ class CollectionGenerator implements GeneratorInterface
     public function export(string $filename, Serializable $serializable): void
     {
         $file = \fopen($filename, 'wb');
-        \fwrite($file, \json_encode($serializable->toArray()));
+
+        $collectionData = $serializable->toArray();
+
+        if ($this->configuration->isOverrideExisting() === true) {
+            $this->updateCurrentCollection($filename, $collectionData);
+        }
+
+        \fwrite($file, \json_encode($collectionData));
         \fclose($file);
     }
 
@@ -114,5 +121,21 @@ class CollectionGenerator implements GeneratorInterface
     public function toArray(): array
     {
         return $this->serializer->serialize($this->collectionObject);
+    }
+
+    /**
+     * Update items for current exported collection.
+     *
+     * @param string $filename
+     * @param mixed[] $collectionData
+     *
+     * @return void
+     */
+    private function updateCurrentCollection(string $filename, array &$collectionData): void
+    {
+        if (\file_exists($filename) === true) {
+            $currentCollection = \json_decode(\file_get_contents($filename))['items'] ?? [];
+            $collectionData['items'] = \array_merge($currentCollection['items'] ?? [], $currentCollection);
+        }
     }
 }
