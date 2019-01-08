@@ -7,6 +7,7 @@ use PostmanGenerator\CollectionGenerator;
 use PostmanGenerator\Interfaces\RequestParserInterface;
 use PostmanGenerator\Interfaces\ResponseParserInterface;
 use PostmanGenerator\Objects\CollectionObject;
+use PostmanGenerator\Objects\Config\ConfigObject;
 use PostmanGenerator\Objects\DescriptionObject;
 use PostmanGenerator\Objects\InfoObject;
 use PostmanGenerator\Objects\RequestObject;
@@ -32,7 +33,7 @@ class CollectionGeneratorTest extends TestCase
     {
         $postmanCollection = new CollectionObject();
 
-        $collection = new CollectionGenerator($postmanCollection, new Serializer());
+        $collection = new CollectionGenerator($postmanCollection, new Serializer(), new ConfigObject());
 
         $description = new DescriptionObject(['content' => 'content-test']);
 
@@ -64,7 +65,7 @@ class CollectionGeneratorTest extends TestCase
             $staffResponseArr,
             $addRestaurantReq,
             $responseArr
-        ] = $this->getRestaurantCollection(['export_directory' => $this->collectionFile]);
+        ] = $this->getRestaurantCollection(new ConfigObject(['export_directory' => $this->collectionFile]));
 
         $collection->generate();
 
@@ -97,7 +98,7 @@ class CollectionGeneratorTest extends TestCase
             $staffResponseArr,
             $addRestaurantReq,
             $responseArr
-        ] = $this->getRestaurantCollection();
+        ] = $this->getRestaurantCollection(new ConfigObject());
 
         self::assertEquals(
             $this->expectedCollectionArray(
@@ -255,11 +256,11 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get restaurant collection with configs.
      *
-     * @param mixed[]|null $configuration
+     * @param \PostmanGenerator\Objects\Config\ConfigObject $configObject
      *
      * @return array
      */
-    private function getRestaurantCollection(?array $configuration = null): array
+    private function getRestaurantCollection(ConfigObject $configObject): array
     {
         $info = new InfoObject([
             'name' => 'edining v2',
@@ -269,7 +270,7 @@ class CollectionGeneratorTest extends TestCase
 
         $postmanCollection = new CollectionObject(\compact('info'));
 
-        $collection = new CollectionGenerator($postmanCollection, new Serializer(), $configuration ?? []);
+        $collection = new CollectionGenerator($postmanCollection, new Serializer(), $configObject);
 
         $description = new DescriptionObject(['content' => 'test-description']);
 
