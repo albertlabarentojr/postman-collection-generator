@@ -3,19 +3,16 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Objects;
 
+use PostmanGenerator\Interfaces\CollectionObjectInterface;
+
 /**
  * @method null|string getName()
- * @method ItemObject[] getItem()
  * @method self setName(string $name)
- * @method self setItem(ItemObject $item)
  */
-class CollectionSubItemObject extends AbstractDataObject
+class CollectionSubItemObject extends AbstractItemableObject
 {
     /** @var string */
     protected $name;
-
-    /** @var \PostmanGenerator\Objects\ItemObject[] */
-    protected $item = [];
 
     /**
      * Serialize object as array.
@@ -32,15 +29,22 @@ class CollectionSubItemObject extends AbstractDataObject
     }
 
     /**
-     * Add sub collection item.
+     * Add Collection item.
      *
-     * @param \PostmanGenerator\Objects\ItemObject $item
+     * @param \PostmanGenerator\Interfaces\CollectionObjectInterface $item
      *
-     * @return \PostmanGenerator\Objects\CollectionSubItemObject
+     * @return \PostmanGenerator\Objects\CollectionObject
      */
-    public function addItem(ItemObject $item): self
+    public function addItem(CollectionObjectInterface $item): AbstractItemableObject
     {
-        $this->item[] = $item;
+        if ($item instanceof ItemObject) {
+            /** @var null|\PostmanGenerator\Objects\CollectionItemObject $existingItem */
+            $existingItem = $this->getItemByName($item->getName());
+
+            if ($existingItem === null) {
+                $this->item[] = $item;
+            }
+        }
 
         return $this;
     }

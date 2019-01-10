@@ -7,11 +7,30 @@ use PostmanGenerator\Objects\AuthObject;
 use PostmanGenerator\Objects\CollectionItemObject;
 use PostmanGenerator\Objects\CollectionObject;
 use PostmanGenerator\Objects\InfoObject;
+use PostmanGenerator\Objects\ItemObject;
 use PostmanGenerator\Objects\VariableObject;
 use Tests\PostmanGenerator\ObjectTestCase;
 
 class CollectionObjectTest extends ObjectTestCase
 {
+    /**
+     * Test add items.
+     *
+     * @return void
+     */
+    public function testAddItems(): void
+    {
+        $collection = new CollectionObject();
+        $item1 = new CollectionItemObject(['name' => 'c-1']);
+        $item2 = new CollectionItemObject(['name' => 'c-2']);
+        $item3 = new CollectionObject(['name' => 'c-2']);
+        $item4 = new ItemObject(['name' => 'c-3']);
+
+        $collection->addItems([$item1, $item2, $item3, $item4]);
+
+        self::assertCount(2, $collection->getItem());
+    }
+
     /**
      * Test data object properties.
      *
@@ -21,8 +40,8 @@ class CollectionObjectTest extends ObjectTestCase
     {
         $collection = new CollectionObject();
         $info = new InfoObject();
-        $item1 = new CollectionItemObject();
-        $item2 = new CollectionItemObject();
+        $item1 = new CollectionItemObject(['name' => 'c-1']);
+        $item2 = new CollectionItemObject(['name' => 'c-2']);
         $auth = new AuthObject();
         $variable1 = new VariableObject();
         $variable2 = new VariableObject();

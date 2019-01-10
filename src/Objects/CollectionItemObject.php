@@ -3,35 +3,44 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Objects;
 
+use PostmanGenerator\Interfaces\CollectionObjectInterface;
+
 /**
  * @method null|string getName()
  * @method null|string getDescription()
- * @method CollectionSubItemObject[] getItem()
  * @method self setName(string $name)
  * @method self setDescription(string $description)
- * @method self setItem(CollectionSubItemObject[] $collectionSubItems)
  */
-class CollectionItemObject extends AbstractDataObject
+class CollectionItemObject extends AbstractItemableObject
 {
     /** @var string */
     protected $description;
-
-    /** @var \PostmanGenerator\Objects\CollectionSubItemObject[] */
-    protected $item = [];
 
     /** @var string */
     protected $name;
 
     /**
-     * Add sub item to collection item.
+     * Add Collection item.
      *
-     * @param \PostmanGenerator\Objects\ItemObject|\PostmanGenerator\Objects\CollectionSubItemObject $collectionSubItem
+     * @param \PostmanGenerator\Interfaces\CollectionObjectInterface $item
      *
-     * @return \PostmanGenerator\Objects\CollectionItemObject
+     * @return \PostmanGenerator\Objects\CollectionObject
      */
-    public function addItem($collectionSubItem): self
+    public function addItem(CollectionObjectInterface $item): AbstractItemableObject
     {
-        $this->item[] = $collectionSubItem;
+        if ($item instanceof CollectionSubItemObject || $item instanceof ItemObject) {
+            /** @var null|\PostmanGenerator\Objects\CollectionItemObject $existingItem */
+            $existingItem = $this->getItemByName($item->getName());
+
+            if ($existingItem !== null) {
+                // Merge items to existing collection item in collection.
+                $existingItem->addItems($item->getItem());
+
+                return $this;
+            }
+
+            $this->item[] = $item;
+        }
 
         return $this;
     }
