@@ -134,4 +134,6 @@ public static function tearDownAfterClass()
 ## Releases
 ### master - v1.0
 - Be able to modify existing collection.
+### master - v1.1.1
+- Updated documentation.
 
