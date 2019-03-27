@@ -2,6 +2,11 @@
 
 ![Drag Racing](postman-logo.svg)
 
+## Installation
+```
+composer require anl/postman-collection-generator
+```
+
 ## About
 
 You might want to document your api, but wait!... setting up postman collection 
@@ -13,7 +18,7 @@ Code while making your api well documented.
 ## Postman Schema version
 Package currently supports https://schema.getpostman.com/json/collection/v2.0.0/docs/index.html
 
-### Usage
+## Usage
 #### Configure your collection.
 
 Using phpunit may require you to understand its life cycle to instantiate objects dynamically.
