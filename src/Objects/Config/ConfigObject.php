@@ -16,7 +16,7 @@ class ConfigObject extends AbstractDataObject
     /**
      * @var string
      */
-    protected $exportDirectory;
+    protected $exportDirectory = __DIR__;
 
     /**
      * @var bool
