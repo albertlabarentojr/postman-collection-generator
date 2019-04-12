@@ -20,8 +20,8 @@ class CollectionItemObjectTest extends ObjectTestCase
     public function testProperties(): void
     {
         $collection = new CollectionItemObject();
-        $subItem1 = new CollectionSubItemObject();
-        $subItem2 = new CollectionSubItemObject();
+        $subItem1 = new CollectionSubItemObject(['name' => 'item-1']);
+        $subItem2 = new CollectionSubItemObject(['name' => 'item-2']);
 
         $collection->setName('Address');
         $collection->addItem($subItem1);

@@ -27,6 +27,8 @@ Using phpunit may require you to understand its life cycle to instantiate object
 Create your collection.
 See https://learning.getpostman.com/docs/postman/collections/creating_collections/#how-to-create-collections
 ```php
+use PostmanGenerator\Objects\CollectionObject;
+
 $collectionObject = new CollectionObject([
      info' => new InfoObject([
         'description' => 'PokemonApi',
@@ -38,6 +40,10 @@ $collectionObject = new CollectionObject([
 
 
 ```php
+use PostmanGenerator\Objects\Config\ConfigObject;
+use PostmanGenerator\CollectionGenerator;
+use PostmanGenerator\Serializer;
+
 // Configure your postman generator.
 $postmanConfig =  new ConfigObject();
 $postmanConfig->setExportDirectory(

@@ -8,16 +8,6 @@ use PostmanGenerator\Objects\CollectionObject;
 interface GeneratorInterface extends Serializable
 {
     /**
-     * Export serializable object to .json file.
-     *
-     * @param string $filename
-     * @param \PostmanGenerator\Interfaces\Serializable $serializable
-     *
-     * @return void
-     */
-    public function export(string $filename, Serializable $serializable): void;
-
-    /**
      * Generate collection of objects as array.
      *
      * @return void
@@ -25,16 +15,27 @@ interface GeneratorInterface extends Serializable
     public function generate(): void;
 
     /**
-     * Get collection object.
+     * Get collection.
      *
      * @return \PostmanGenerator\Objects\CollectionObject
      */
     public function getCollection(): CollectionObject;
 
     /**
-     * Get all request collections.
+     * Set config.
      *
-     * @return \PostmanGenerator\Interfaces\CollectionRequestInterface[]
+     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
+     *
+     * @return \PostmanGenerator\Interfaces\GeneratorInterface
      */
-    public function toArray(): array;
+    public function setConfig(ConfigInterface $config): self;
+
+    /**
+     * Set persister.
+     *
+     * @param \PostmanGenerator\Interfaces\PersisterInterface $persister
+     *
+     * @return \PostmanGenerator\Interfaces\GeneratorInterface
+     */
+    public function setPersister(PersisterInterface $persister): self;
 }
