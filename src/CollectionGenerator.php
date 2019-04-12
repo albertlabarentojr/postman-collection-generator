@@ -3,14 +3,12 @@ declare(strict_types=1);
 
 namespace PostmanGenerator;
 
-use PostmanGenerator\Exceptions\MissingConfigurationKeyException;
 use PostmanGenerator\Interfaces\CollectionInterface;
+use PostmanGenerator\Interfaces\ConfigInterface;
 use PostmanGenerator\Interfaces\GeneratorInterface;
-use PostmanGenerator\Interfaces\Serializable;
-use PostmanGenerator\Interfaces\SerializerInterface;
+use PostmanGenerator\Interfaces\PersisterInterface;
 use PostmanGenerator\Objects\CollectionItemObject;
 use PostmanGenerator\Objects\CollectionObject;
-use PostmanGenerator\Objects\Config\ConfigObject;
 
 class CollectionGenerator implements GeneratorInterface
 {
@@ -20,30 +18,23 @@ class CollectionGenerator implements GeneratorInterface
     private $collectionObject;
 
     /**
-     * @var \PostmanGenerator\Objects\Config\ConfigObject
+     * @var \PostmanGenerator\Interfaces\ConfigInterface
      */
-    private $configuration;
+    private $config;
 
     /**
-     * @var \PostmanGenerator\Interfaces\SerializerInterface
+     * @var \PostmanGenerator\Interfaces\PersisterInterface
      */
-    private $serializer;
+    private $persister;
 
     /**
      * CollectionGenerator constructor.
      *
      * @param \PostmanGenerator\Objects\CollectionObject $collectionObject
-     * @param \PostmanGenerator\Interfaces\SerializerInterface $serializer
-     * @param \PostmanGenerator\Objects\Config\ConfigObject $configuration
      */
-    public function __construct(
-        CollectionObject $collectionObject,
-        SerializerInterface $serializer,
-        ConfigObject $configuration
-    ) {
+    public function __construct(CollectionObject $collectionObject)
+    {
         $this->collectionObject = $collectionObject;
-        $this->serializer = $serializer;
-        $this->configuration = $configuration;
     }
 
     /**
@@ -64,46 +55,17 @@ class CollectionGenerator implements GeneratorInterface
     }
 
     /**
-     * Export serializable object to .json file.
-     *
-     * @param string $filename
-     * @param \PostmanGenerator\Interfaces\Serializable $serializable
-     *
-     * @return void
-     */
-    public function export(string $filename, Serializable $serializable): void
-    {
-        $collectionData = $serializable->toArray();
-
-        if ($this->configuration->isOverrideExisting() === true) {
-            $this->updateCurrentCollection($filename, $collectionData);
-        }
-
-        $file = \fopen($filename, 'wb');
-        \fwrite($file, \json_encode($collectionData));
-        \fclose($file);
-    }
-
-    /**
      * Generate collection of objects as array.
      *
      * @return void
-     *
-     * @throws \PostmanGenerator\Exceptions\MissingConfigurationKeyException
      */
     public function generate(): void
     {
-        $exportDirectory = $this->configuration->getExportDirectory() ?? null;
-
-        if ($exportDirectory === null) {
-            throw new MissingConfigurationKeyException('Missing Configuration: [export_directory]');
-        }
-
-        $this->export($exportDirectory, $this);
+        $this->getPersister()->persist($this->getConfig(), $this->collectionObject);
     }
 
     /**
-     * Get collection object.
+     * Get collection.
      *
      * @return \PostmanGenerator\Objects\CollectionObject
      */
@@ -113,28 +75,60 @@ class CollectionGenerator implements GeneratorInterface
     }
 
     /**
-     * Get all request collections.
+     * Set config.
      *
-     * @return \PostmanGenerator\Interfaces\CollectionRequestInterface[]
+     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
+     *
+     * @return \PostmanGenerator\Interfaces\GeneratorInterface
      */
-    public function toArray(): array
+    public function setConfig(ConfigInterface $config): GeneratorInterface
     {
-        return $this->serializer->serialize($this->collectionObject);
+        $this->config = $config;
+
+        return $this;
     }
 
     /**
-     * Update items for current exported collection.
+     * Set persister.
      *
-     * @param string $filename
-     * @param mixed[] $collectionData
+     * @param \PostmanGenerator\Interfaces\PersisterInterface $persister
      *
-     * @return void
+     * @return \PostmanGenerator\Interfaces\GeneratorInterface
      */
-    private function updateCurrentCollection(string $filename, array &$collectionData): void
+    public function setPersister(PersisterInterface $persister): GeneratorInterface
     {
-        if (\file_exists($filename) === true) {
-            $currentCollection = \json_decode(\file_get_contents($filename), true);
-            $collectionData['item'] = \array_merge($currentCollection['item'] ?? [], $collectionData['item'] ?? []);
-        }
+        $this->persister = $persister;
+
+        return $this;
+    }
+
+    /**
+     * Serialize object as array.
+     *
+     * @return mixed[]
+     */
+    public function toArray(): array
+    {
+        return $this->getPersister()->getSerializer()->serialize($this->collectionObject);
+    }
+
+    /**
+     * Get config.
+     *
+     * @return \PostmanGenerator\Interfaces\ConfigInterface
+     */
+    private function getConfig(): ConfigInterface
+    {
+        return $this->config ?? new Config();
+    }
+
+    /**
+     * Get persister.
+     *
+     * @return \PostmanGenerator\Interfaces\PersisterInterface
+     */
+    private function getPersister(): PersisterInterface
+    {
+        return $this->persister ?? new Persister();
     }
 }

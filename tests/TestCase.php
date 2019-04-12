@@ -28,4 +28,17 @@ abstract class TestCase extends PhpunitTestCase
 
         return $mock;
     }
+
+    /**
+     * Assert given file contains expected collection content.
+     *
+     * @param string $file
+     * @param array $expected
+     *
+     * @return void
+     */
+    protected function assertGeneratedCollection(string $file, array $expected): void
+    {
+        self::assertEquals(\json_decode(\file_get_contents($file), true), $expected);
+    }
 }
