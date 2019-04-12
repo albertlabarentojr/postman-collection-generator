@@ -9,11 +9,11 @@ composer require anl/postman-collection-generator
 
 ## About
 
-You might want to document your api, but wait!... setting up postman collection 
-with your environment? 
-Sure that's great but for developers who are not fun of doing this manually, 
-Integrate **Postman Collection Generator** in your functional tests. 
-Code while making your api well documented. 
+You might want to document your api, but wait!... setting up postman collection
+with your environment?
+Sure that's great but for developers who are not fond of doing this manually,
+Integrate **Postman Collection Generator** in your functional tests.
+Code while making your api well documented.
 
 ## Postman Schema version
 Package currently supports https://schema.getpostman.com/json/collection/v2.0.0/docs/index.html
@@ -24,7 +24,7 @@ Package currently supports https://schema.getpostman.com/json/collection/v2.0.0/
 Using phpunit may require you to understand its life cycle to instantiate objects dynamically.
 **PHPUNIT** **setUpBeforeClass()**
 
-Create your collection. 
+Create your collection.
 See https://learning.getpostman.com/docs/postman/collections/creating_collections/#how-to-create-collections
 ```php
 $collectionObject = new CollectionObject([
@@ -45,12 +45,12 @@ $postmanConfig->setExportDirectory(
 );
 
 // You may override your existing collection, just in case an existing collection already exists.
-$postmanConfig->setOverrideExisting(true); 
+$postmanConfig->setOverrideExisting(true);
 
 // Set your api generator globaly to be accessible to your test classes.
 self::$apiGenerator = new CollectionGenerator(
-    $collectionObject, 
-    new Serializer(), 
+    $collectionObject,
+    new Serializer(),
     $postmanConfig
 );
 ```
