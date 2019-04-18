@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Interfaces;
 
-use PostmanGenerator\Objects\RequestObject;
+use PostmanGenerator\Schemas\RequestSchema;
 use PostmanGenerator\RequestExample;
 
 interface RequestExampleInterface
@@ -27,9 +27,9 @@ interface RequestExampleInterface
     /**
      * Set example original request.
      *
-     * @param \PostmanGenerator\Objects\RequestObject $request
+     * @param \PostmanGenerator\Schemas\RequestSchema $request
      *
      * @return \PostmanGenerator\RequestExample
      */
-    public function setOriginalRequest(RequestObject $request): RequestExample;
+    public function setOriginalRequest(RequestSchema $request): RequestExample;
 }

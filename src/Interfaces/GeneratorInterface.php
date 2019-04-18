@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Interfaces;
 
-use PostmanGenerator\Objects\CollectionObject;
+use PostmanGenerator\Schemas\CollectionSchema;
 
 interface GeneratorInterface extends Serializable
 {
@@ -27,9 +27,9 @@ interface GeneratorInterface extends Serializable
     /**
      * Get collection object.
      *
-     * @return \PostmanGenerator\Objects\CollectionObject
+     * @return \PostmanGenerator\Schemas\CollectionSchema
      */
-    public function getCollection(): CollectionObject;
+    public function getCollection(): CollectionSchema;
 
     /**
      * Get all request collections.

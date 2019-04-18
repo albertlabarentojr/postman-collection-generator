@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Interfaces;
 
-use PostmanGenerator\Objects\DescriptionObject;
+use PostmanGenerator\Schemas\DescriptionSchema;
 
 interface CollectionInterface extends FillableCollectionInterface
 {
@@ -36,10 +36,10 @@ interface CollectionInterface extends FillableCollectionInterface
     /**
      * Set request description.
      *
-     * @param \PostmanGenerator\Objects\DescriptionObject $description
+     * @param \PostmanGenerator\Schemas\DescriptionSchema $description
      *
      * @return \PostmanGenerator\Interfaces\CollectionInterface
      */
-    public function setDescription(DescriptionObject $description): CollectionInterface;
+    public function setDescription(DescriptionSchema $description): CollectionInterface;
 }
 

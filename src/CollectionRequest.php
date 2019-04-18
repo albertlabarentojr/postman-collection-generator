@@ -6,23 +6,23 @@ namespace PostmanGenerator;
 use PostmanGenerator\Interfaces\CollectionRequestInterface;
 use PostmanGenerator\Interfaces\RequestExampleInterface;
 use PostmanGenerator\Interfaces\RequestParserInterface;
-use PostmanGenerator\Objects\CollectionSubItemObject;
-use PostmanGenerator\Objects\ItemObject;
-use PostmanGenerator\Objects\RequestObject;
+use PostmanGenerator\Schemas\CollectionSubItemSchema;
+use PostmanGenerator\Schemas\ItemSchema;
+use PostmanGenerator\Schemas\RequestSchema;
 
 class CollectionRequest implements CollectionRequestInterface
 {
     /**
-     * @var \PostmanGenerator\Objects\CollectionSubItemObject
+     * @var \PostmanGenerator\Schemas\CollectionSubItemSchema
      */
     private $subItem;
 
     /**
      * CollectionRequest constructor.
      *
-     * @param \PostmanGenerator\Objects\CollectionSubItemObject $subItem
+     * @param \PostmanGenerator\Schemas\CollectionSubItemSchema $subItem
      */
-    public function __construct(CollectionSubItemObject $subItem)
+    public function __construct(CollectionSubItemSchema $subItem)
     {
         $this->subItem = $subItem;
     }
@@ -37,7 +37,7 @@ class CollectionRequest implements CollectionRequestInterface
      */
     public function addRequest(string $exampleName, RequestParserInterface $request): RequestExampleInterface
     {
-        $item = new ItemObject();
+        $item = new ItemSchema();
         $item->setName($exampleName);
 
         $this->subItem->addItem($item);

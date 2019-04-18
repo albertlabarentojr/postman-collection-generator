@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Interfaces;
 
-use PostmanGenerator\Objects\ResponseObject;
+use PostmanGenerator\Schemas\ResponseSchema;
 
 interface ResponseParserInterface
 {
     /**
      * Parse response from given data.
      *
-     * @return \PostmanGenerator\Objects\ResponseObject
+     * @return \PostmanGenerator\Schemas\ResponseSchema
      */
-    public function parseResponse(): ResponseObject;
+    public function parseResponse(): ResponseSchema;
 }

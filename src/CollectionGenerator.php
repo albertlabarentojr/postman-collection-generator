@@ -8,19 +8,19 @@ use PostmanGenerator\Interfaces\CollectionInterface;
 use PostmanGenerator\Interfaces\GeneratorInterface;
 use PostmanGenerator\Interfaces\Serializable;
 use PostmanGenerator\Interfaces\SerializerInterface;
-use PostmanGenerator\Objects\CollectionItemObject;
-use PostmanGenerator\Objects\CollectionObject;
-use PostmanGenerator\Objects\Config\ConfigObject;
+use PostmanGenerator\Schemas\CollectionItemSchema;
+use PostmanGenerator\Schemas\CollectionSchema;
+use PostmanGenerator\Schemas\Config\ConfigObject;
 
 class CollectionGenerator implements GeneratorInterface
 {
     /**
-     * @var \PostmanGenerator\Objects\CollectionObject
+     * @var \PostmanGenerator\Schemas\CollectionSchema
      */
     private $collectionObject;
 
     /**
-     * @var \PostmanGenerator\Objects\Config\ConfigObject
+     * @var \PostmanGenerator\Schemas\Config\ConfigObject
      */
     private $configuration;
 
@@ -32,12 +32,12 @@ class CollectionGenerator implements GeneratorInterface
     /**
      * CollectionGenerator constructor.
      *
-     * @param \PostmanGenerator\Objects\CollectionObject $collectionObject
+     * @param \PostmanGenerator\Schemas\CollectionSchema $collectionObject
      * @param \PostmanGenerator\Interfaces\SerializerInterface $serializer
-     * @param \PostmanGenerator\Objects\Config\ConfigObject $configuration
+     * @param \PostmanGenerator\Schemas\Config\ConfigObject $configuration
      */
     public function __construct(
-        CollectionObject $collectionObject,
+        CollectionSchema $collectionObject,
         SerializerInterface $serializer,
         ConfigObject $configuration
     ) {
@@ -55,7 +55,7 @@ class CollectionGenerator implements GeneratorInterface
      */
     public function add(string $collectionName): CollectionInterface
     {
-        $collectionItem = new CollectionItemObject();
+        $collectionItem = new CollectionItemSchema();
         $collectionItem->setName($collectionName);
 
         $this->collectionObject->addItem($collectionItem);
@@ -105,9 +105,9 @@ class CollectionGenerator implements GeneratorInterface
     /**
      * Get collection object.
      *
-     * @return \PostmanGenerator\Objects\CollectionObject
+     * @return \PostmanGenerator\Schemas\CollectionSchema
      */
-    public function getCollection(): CollectionObject
+    public function getCollection(): CollectionSchema
     {
         return $this->collectionObject;
     }

@@ -6,12 +6,12 @@ namespace Tests\PostmanGenerator\Generators;
 use PostmanGenerator\CollectionGenerator;
 use PostmanGenerator\Interfaces\RequestParserInterface;
 use PostmanGenerator\Interfaces\ResponseParserInterface;
-use PostmanGenerator\Objects\CollectionObject;
-use PostmanGenerator\Objects\Config\ConfigObject;
-use PostmanGenerator\Objects\DescriptionObject;
-use PostmanGenerator\Objects\InfoObject;
-use PostmanGenerator\Objects\RequestObject;
-use PostmanGenerator\Objects\ResponseObject;
+use PostmanGenerator\Schemas\CollectionSchema;
+use PostmanGenerator\Schemas\Config\ConfigObject;
+use PostmanGenerator\Schemas\DescriptionSchema;
+use PostmanGenerator\Schemas\InfoSchema;
+use PostmanGenerator\Schemas\RequestSchema;
+use PostmanGenerator\Schemas\ResponseSchema;
 use PostmanGenerator\Serializer;
 use Mockery\MockInterface;
 use Tests\PostmanGenerator\TestCase;
@@ -31,11 +31,11 @@ class CollectionGeneratorTest extends TestCase
      */
     public function testAddCollection(): void
     {
-        $postmanCollection = new CollectionObject();
+        $postmanCollection = new CollectionSchema();
 
         $collection = new CollectionGenerator($postmanCollection, new Serializer(), new ConfigObject());
 
-        $description = new DescriptionObject(['content' => 'content-test']);
+        $description = new DescriptionSchema(['content' => 'content-test']);
 
         $collection->add('Restaurant')->setDescription($description);
 
@@ -130,8 +130,8 @@ class CollectionGeneratorTest extends TestCase
      * @param string $requestName
      * @param string $exampleName
      * @param mixed $collectionRequest
-     * @param null|\PostmanGenerator\Objects\RequestObject $request
-     * @param null|\PostmanGenerator\Objects\ResponseObject $response
+     * @param null|\PostmanGenerator\Schemas\RequestSchema $request
+     * @param null|\PostmanGenerator\Schemas\ResponseSchema $response
      *
      * @return mixed[]
      */
@@ -139,11 +139,11 @@ class CollectionGeneratorTest extends TestCase
         string $requestName,
         string $exampleName,
         $collectionRequest,
-        ?RequestObject $request = null,
-        ?ResponseObject $response = null
+        ?RequestSchema $request = null,
+        ?ResponseSchema $response = null
     ): array {
-        $request = $request ?? new RequestObject();
-        $response = $response ?? new ResponseObject();
+        $request = $request ?? new RequestSchema();
+        $response = $response ?? new ResponseSchema();
 
         /** @var \PostmanGenerator\Interfaces\RequestParserInterface $requestParser */
         /** @var \PostmanGenerator\Interfaces\ResponseParserInterface $responseParser */
@@ -155,7 +155,7 @@ class CollectionGeneratorTest extends TestCase
 
         $responseArr = $response->toArray();
 
-        /** @var \PostmanGenerator\Objects\RequestObject $requestArr */
+        /** @var \PostmanGenerator\Schemas\RequestSchema $requestArr */
         $requestArr = $responseArr['originalRequest'];
 
         $responseArr['originalRequest'] = $requestArr->toArray();
@@ -166,18 +166,18 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get expected data of collection as array.
      *
-     * @param \PostmanGenerator\Objects\RequestObject $addStaffRequest
+     * @param \PostmanGenerator\Schemas\RequestSchema $addStaffRequest
      * @param mixed[] $staffResponseArr
-     * @param \PostmanGenerator\Objects\RequestObject $addRestaurantReq
+     * @param \PostmanGenerator\Schemas\RequestSchema $addRestaurantReq
      * @param mixed[] $responseArr
      * @param null|mixed[] $additionalConfig
      *
      * @return mixed[]
      */
     private function expectedCollectionArray(
-        RequestObject $addStaffRequest,
+        RequestSchema $addStaffRequest,
         array $staffResponseArr,
-        RequestObject $addRestaurantReq,
+        RequestSchema $addRestaurantReq,
         array $responseArr,
         ?array $additionalConfig = null
     ): array {
@@ -205,7 +205,7 @@ class CollectionGeneratorTest extends TestCase
                             'response' => [['name' => 'Create Restaurant Successful'] + $responseArr]
                         ]
                     ],
-                    'description' => ['content' => 'test-description', 'type' => DescriptionObject::DEFAULT_TYPE]
+                    'description' => ['content' => 'test-description', 'type' => DescriptionSchema::DEFAULT_TYPE]
                 ]
             ],
             'variable' => []
@@ -221,18 +221,18 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get request and response parser.
      *
-     * @param null|\PostmanGenerator\Objects\RequestObject $request
-     * @param null|\PostmanGenerator\Objects\ResponseObject $response
+     * @param null|\PostmanGenerator\Schemas\RequestSchema $request
+     * @param null|\PostmanGenerator\Schemas\ResponseSchema $response
      *
      * @return mixed[]
      */
     private function getParsers(
-        ?RequestObject $request = null,
-        ?ResponseObject $response = null
+        ?RequestSchema $request = null,
+        ?ResponseSchema $response = null
     ): array {
-        $request = $request ?? new RequestObject();
+        $request = $request ?? new RequestSchema();
 
-        $response = $response ?? new ResponseObject();
+        $response = $response ?? new ResponseSchema();
 
         /** @var \PostmanGenerator\Interfaces\RequestParserInterface $requestParser */
         $requestParser = $this->mock(
@@ -256,23 +256,23 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get restaurant collection with configs.
      *
-     * @param \PostmanGenerator\Objects\Config\ConfigObject $configObject
+     * @param \PostmanGenerator\Schemas\Config\ConfigObject $configObject
      *
      * @return array
      */
     private function getRestaurantCollection(ConfigObject $configObject): array
     {
-        $info = new InfoObject([
+        $info = new InfoSchema([
             'name' => 'edining v2',
             'description' => 'Description as string',
             'schema' => 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'
         ]);
 
-        $postmanCollection = new CollectionObject(\compact('info'));
+        $postmanCollection = new CollectionSchema(\compact('info'));
 
         $collection = new CollectionGenerator($postmanCollection, new Serializer(), $configObject);
 
-        $description = new DescriptionObject(['content' => 'test-description']);
+        $description = new DescriptionSchema(['content' => 'test-description']);
 
         $restaurant = $collection->add('Restaurant');
 

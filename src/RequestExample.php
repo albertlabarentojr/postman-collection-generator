@@ -6,26 +6,26 @@ namespace PostmanGenerator;
 use PostmanGenerator\Interfaces\RequestExampleInterface;
 use PostmanGenerator\Interfaces\RequestParserInterface;
 use PostmanGenerator\Interfaces\ResponseParserInterface;
-use PostmanGenerator\Objects\ItemObject;
-use PostmanGenerator\Objects\RequestObject;
+use PostmanGenerator\Schemas\ItemSchema;
+use PostmanGenerator\Schemas\RequestSchema;
 
 class RequestExample implements RequestExampleInterface
 {
     /**
-     * @var \PostmanGenerator\Objects\ItemObject
+     * @var \PostmanGenerator\Schemas\ItemSchema
      */
     private $itemObject;
 
-    /** @var \PostmanGenerator\Objects\RequestObject */
+    /** @var \PostmanGenerator\Schemas\RequestSchema */
     private $originalRequest;
 
     /**
      * RequestExample constructor.
      *
-     * @param \PostmanGenerator\Objects\ItemObject $itemObject
+     * @param \PostmanGenerator\Schemas\ItemSchema $itemObject
      * @param \PostmanGenerator\Interfaces\RequestParserInterface $request
      */
-    public function __construct(ItemObject $itemObject, RequestParserInterface $request)
+    public function __construct(ItemSchema $itemObject, RequestParserInterface $request)
     {
         $this->itemObject = $itemObject;
         $this->originalRequest = $request->parseRequest();
@@ -59,11 +59,11 @@ class RequestExample implements RequestExampleInterface
     /**
      * Set example original request.
      *
-     * @param \PostmanGenerator\Objects\RequestObject $request
+     * @param \PostmanGenerator\Schemas\RequestSchema $request
      *
      * @return \PostmanGenerator\RequestExample
      */
-    public function setOriginalRequest(RequestObject $request): RequestExample
+    public function setOriginalRequest(RequestSchema $request): RequestExample
     {
         $this->itemObject->setRequest($request);
 

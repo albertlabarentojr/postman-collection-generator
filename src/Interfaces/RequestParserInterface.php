@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Interfaces;
 
-use PostmanGenerator\Objects\RequestObject;
+use PostmanGenerator\Schemas\RequestSchema;
 
 interface RequestParserInterface
 {
     /**
      * Parse request from given data.
      *
-     * @return \PostmanGenerator\Objects\RequestObject
+     * @return \PostmanGenerator\Schemas\RequestSchema
      */
-    public function parseRequest(): RequestObject;
+    public function parseRequest(): RequestSchema;
 }
