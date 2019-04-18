@@ -20,8 +20,8 @@ class CollectionItemSchemaTest extends SchemaTestCase
     public function testProperties(): void
     {
         $collection = new CollectionItemSchema();
-        $subItem1 = new CollectionSubItemSchema(['name' => 'SubFolder1']);
-        $subItem2 = new CollectionSubItemSchema(['name' => 'SubFolder2']);
+        $subItem1 = new CollectionSubItemSchema(['name' => 'item-1']);
+        $subItem2 = new CollectionSubItemSchema(['name' => 'item-2']);
 
         $collection->setName('Address');
         $collection->addItem($subItem1);

@@ -4,15 +4,15 @@ declare(strict_types=1);
 namespace Tests\PostmanGenerator\Generators;
 
 use PostmanGenerator\CollectionGenerator;
+use PostmanGenerator\Config;
+use PostmanGenerator\Interfaces\ConfigInterface;
 use PostmanGenerator\Interfaces\RequestParserInterface;
 use PostmanGenerator\Interfaces\ResponseParserInterface;
 use PostmanGenerator\Schemas\CollectionSchema;
-use PostmanGenerator\Schemas\Config\ConfigObject;
 use PostmanGenerator\Schemas\DescriptionSchema;
 use PostmanGenerator\Schemas\InfoSchema;
 use PostmanGenerator\Schemas\RequestSchema;
 use PostmanGenerator\Schemas\ResponseSchema;
-use PostmanGenerator\Serializer;
 use Mockery\MockInterface;
 use Tests\PostmanGenerator\TestCase;
 
@@ -21,8 +21,11 @@ use Tests\PostmanGenerator\TestCase;
  */
 class CollectionGeneratorTest extends TestCase
 {
+    /** @var string  */
+    private $collectionDir = __DIR__;
+
     /** @var string */
-    private $collectionFile = 'collection.json';
+    private $collectionFile = 'collection';
 
     /**
      * Test add collection request.
@@ -33,20 +36,24 @@ class CollectionGeneratorTest extends TestCase
     {
         $postmanCollection = new CollectionSchema();
 
-        $collection = new CollectionGenerator($postmanCollection, new Serializer(), new ConfigObject());
+        $collection = new CollectionGenerator($postmanCollection);
+        $collection->setConfig(new Config($this->collectionDir, $this->collectionFile));
 
         $description = new DescriptionSchema(['content' => 'content-test']);
 
         $collection->add('Restaurant')->setDescription($description);
+        $collection->generate();
 
-        self::assertEquals([
+        $filepath = \sprintf('%s/%s.json', $this->collectionDir, $this->collectionFile);
+
+        $this->assertGeneratedCollection($filepath, [
             'info' => null,
             'auth' => null,
             'item' => [
                 ['description' => 'content-test', 'item' => [], 'name' => 'Restaurant']
             ],
             'variable' => []
-        ], $collection->toArray());
+        ]);
     }
 
     /**
@@ -65,11 +72,11 @@ class CollectionGeneratorTest extends TestCase
             $staffResponseArr,
             $addRestaurantReq,
             $responseArr
-        ] = $this->getRestaurantCollection(new ConfigObject(['export_directory' => $this->collectionFile]));
+        ] = $this->getRestaurantCollection(new Config($this->collectionDir, $this->collectionFile));
 
         $collection->generate();
 
-        $file = \json_decode(\file($this->collectionFile)[0], true);
+        $file = \json_decode(\file($this->collectionDir . '/' . $this->collectionFile . '.json')[0], true);
 
         self::assertEquals(
             $this->expectedCollectionArray(
@@ -98,7 +105,7 @@ class CollectionGeneratorTest extends TestCase
             $staffResponseArr,
             $addRestaurantReq,
             $responseArr
-        ] = $this->getRestaurantCollection(new ConfigObject());
+        ] = $this->getRestaurantCollection(new Config());
 
         self::assertEquals(
             $this->expectedCollectionArray(
@@ -130,8 +137,8 @@ class CollectionGeneratorTest extends TestCase
      * @param string $requestName
      * @param string $exampleName
      * @param mixed $collectionRequest
-     * @param null|\PostmanGenerator\Schemas\RequestSchema $request
-     * @param null|\PostmanGenerator\Schemas\ResponseSchema $response
+     * @param null|\PostmanGenerator\Objects\RequestSchema $request
+     * @param null|\PostmanGenerator\Objects\ResponseSchema $response
      *
      * @return mixed[]
      */
@@ -155,7 +162,7 @@ class CollectionGeneratorTest extends TestCase
 
         $responseArr = $response->toArray();
 
-        /** @var \PostmanGenerator\Schemas\RequestSchema $requestArr */
+        /** @var \PostmanGenerator\Objects\RequestSchema $requestArr */
         $requestArr = $responseArr['originalRequest'];
 
         $responseArr['originalRequest'] = $requestArr->toArray();
@@ -166,9 +173,9 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get expected data of collection as array.
      *
-     * @param \PostmanGenerator\Schemas\RequestSchema $addStaffRequest
+     * @param \PostmanGenerator\Objects\RequestSchema $addStaffRequest
      * @param mixed[] $staffResponseArr
-     * @param \PostmanGenerator\Schemas\RequestSchema $addRestaurantReq
+     * @param \PostmanGenerator\Objects\RequestSchema $addRestaurantReq
      * @param mixed[] $responseArr
      * @param null|mixed[] $additionalConfig
      *
@@ -221,8 +228,8 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get request and response parser.
      *
-     * @param null|\PostmanGenerator\Schemas\RequestSchema $request
-     * @param null|\PostmanGenerator\Schemas\ResponseSchema $response
+     * @param null|\PostmanGenerator\Objects\RequestSchema $request
+     * @param null|\PostmanGenerator\Objects\ResponseSchema $response
      *
      * @return mixed[]
      */
@@ -256,11 +263,11 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get restaurant collection with configs.
      *
-     * @param \PostmanGenerator\Schemas\Config\ConfigObject $configObject
+     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
      *
      * @return array
      */
-    private function getRestaurantCollection(ConfigObject $configObject): array
+    private function getRestaurantCollection(ConfigInterface $config): array
     {
         $info = new InfoSchema([
             'name' => 'edining v2',
@@ -270,7 +277,8 @@ class CollectionGeneratorTest extends TestCase
 
         $postmanCollection = new CollectionSchema(\compact('info'));
 
-        $collection = new CollectionGenerator($postmanCollection, new Serializer(), $configObject);
+        $collection = new CollectionGenerator($postmanCollection);
+        $collection->setConfig($config);
 
         $description = new DescriptionSchema(['content' => 'test-description']);
 

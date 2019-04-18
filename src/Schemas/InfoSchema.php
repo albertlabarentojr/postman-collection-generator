@@ -27,7 +27,7 @@ class InfoSchema extends AbstractSchema implements PrePopulateInterface
     protected $postmanId;
 
     /** @var string */
-    protected $schema;
+    protected $schema = 'https://schema.getpostman.com/json/collection/v2.0.0/docs/index.html';
 
     /**
      * Fill properties before mass assignment.
