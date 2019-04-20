@@ -146,6 +146,17 @@ public static function tearDownAfterClass()
 }
 ```
 
+## Schema Structure
+- CollectionSchema **PokemonApi**
+    - CollectionItemSchema **PokemonTrainer**
+        - CollectionSubItemSchema ```TrainerLaboratory```
+            - ItemSchema ```Create Trainer Laboratory```
+        - ItemSchema ```Create Trainer```
+            - RequestSchema
+            - ResponseSchema[]
+                - [0] ```Create Trainer Successful```
+                - [1] ```Create Trainer Not Found```
+                
 ## Releases
 ### master - v1.0
 - Be able to modify existing collection.

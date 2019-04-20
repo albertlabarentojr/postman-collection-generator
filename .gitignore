@@ -1,3 +1,4 @@
 vendor/
 composer.lock
-tests/Generators/.phpunit.result.cache
+tests/Schemas/.phpunit.result.cache
+tests/Generators/collection.json

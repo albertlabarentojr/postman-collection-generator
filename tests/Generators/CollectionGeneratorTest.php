@@ -60,8 +60,6 @@ class CollectionGeneratorTest extends TestCase
      * Test collection generate must export json file with collection.
      *
      * @return void
-     *
-     * @throws \PostmanGenerator\Exceptions\MissingConfigurationKeyException
      */
     public function testCollectionGenerate(): void
     {
@@ -137,8 +135,8 @@ class CollectionGeneratorTest extends TestCase
      * @param string $requestName
      * @param string $exampleName
      * @param mixed $collectionRequest
-     * @param null|\PostmanGenerator\Objects\RequestSchema $request
-     * @param null|\PostmanGenerator\Objects\ResponseSchema $response
+     * @param null|\PostmanGenerator\Schemas\RequestSchema $request
+     * @param null|\PostmanGenerator\Schemas\ResponseSchema $response
      *
      * @return mixed[]
      */
@@ -162,7 +160,7 @@ class CollectionGeneratorTest extends TestCase
 
         $responseArr = $response->toArray();
 
-        /** @var \PostmanGenerator\Objects\RequestSchema $requestArr */
+        /** @var \PostmanGenerator\Schemas\RequestSchema $requestArr */
         $requestArr = $responseArr['originalRequest'];
 
         $responseArr['originalRequest'] = $requestArr->toArray();
@@ -173,9 +171,9 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get expected data of collection as array.
      *
-     * @param \PostmanGenerator\Objects\RequestSchema $addStaffRequest
+     * @param \PostmanGenerator\Schemas\RequestSchema $addStaffRequest
      * @param mixed[] $staffResponseArr
-     * @param \PostmanGenerator\Objects\RequestSchema $addRestaurantReq
+     * @param \PostmanGenerator\Schemas\RequestSchema $addRestaurantReq
      * @param mixed[] $responseArr
      * @param null|mixed[] $additionalConfig
      *
@@ -228,8 +226,8 @@ class CollectionGeneratorTest extends TestCase
     /**
      * Get request and response parser.
      *
-     * @param null|\PostmanGenerator\Objects\RequestSchema $request
-     * @param null|\PostmanGenerator\Objects\ResponseSchema $response
+     * @param null|\PostmanGenerator\Schemas\RequestSchema $request
+     * @param null|\PostmanGenerator\Schemas\ResponseSchema $response
      *
      * @return mixed[]
      */

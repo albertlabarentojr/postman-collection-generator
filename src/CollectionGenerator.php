@@ -30,7 +30,7 @@ class CollectionGenerator implements GeneratorInterface
     /**
      * CollectionGenerator constructor.
      *
-     * @param \PostmanGenerator\Objects\CollectionSchema $collectionObject
+     * @param \PostmanGenerator\Schemas\CollectionSchema $collectionObject
      */
     public function __construct(CollectionSchema $collectionObject)
     {
