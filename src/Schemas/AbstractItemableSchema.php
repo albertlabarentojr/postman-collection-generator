@@ -8,7 +8,7 @@ use PostmanGenerator\Interfaces\ItemableCollectionInterface;
 
 /**
  * @method \Countable|CollectionSchemaInterface[] getItem()
- * @method self setItem(CollectionSchemaInterface[] $item);
+ * @method self setItem(CollectionSchemaInterface[] $item)
  */
 abstract class AbstractItemableSchema extends AbstractSchema implements ItemableCollectionInterface
 {
@@ -22,9 +22,32 @@ abstract class AbstractItemableSchema extends AbstractSchema implements Itemable
      *
      * @return \PostmanGenerator\Schemas\CollectionSchema
      */
-    public function addItem(CollectionSchemaInterface $item): self
+    public function addItem(CollectionSchemaInterface $item): AbstractItemableSchema
     {
-        $this->item[] = $item;
+        if ($item instanceof ItemSchema || $item instanceof ItemableCollectionInterface) {
+            $currentPosition = null;
+
+            // Update existing item
+            /** @var self|\PostmanGenerator\Schemas\ItemSchema $existingItem */
+            /** @var self|\PostmanGenerator\Schemas\ItemSchema $item */
+            foreach ($this->item as $index => $existingItem) {
+                if ($existingItem->getName() === $item->getName()) {
+                    $currentPosition = $index;
+
+                    /** @noinspection NotOptimalIfConditionsInspection */
+                    if ($item instanceof ItemableCollectionInterface) {
+                        $item->addItems($existingItem->getItem());
+                    }
+                }
+            }
+
+            // Insert new item
+            if ($currentPosition === null) {
+                $currentPosition = \count($this->item);
+            }
+
+            $this->item[$currentPosition] = $item;
+        }
 
         return $this;
     }

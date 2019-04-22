@@ -3,11 +3,19 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Interfaces;
 
-use PostmanGenerator\Objects\CollectionObject;
 use PostmanGenerator\Schemas\CollectionSchema;
 
 interface PersisterInterface
 {
+    /**
+     * Get cached collection schema.
+     *
+     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
+     *
+     * @return null|\PostmanGenerator\Schemas\CollectionSchema
+     */
+    public function getCachedCollection(ConfigInterface $config): ?CollectionSchema;
+
     /**
      * Get serializer.
      *

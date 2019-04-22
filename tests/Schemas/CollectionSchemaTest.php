@@ -23,12 +23,12 @@ class CollectionSchemaTest extends SchemaTestCase
         $collection = new CollectionSchema();
         $item1 = new CollectionItemSchema(['name' => 'c-1']);
         $item2 = new CollectionItemSchema(['name' => 'c-2']);
-        $item3 = new CollectionSchema(['name' => 'c-2']);
+        $item3 = new CollectionItemSchema(['name' => 'c-2']);
         $item4 = new ItemSchema(['name' => 'c-3']);
 
         $collection->addItems([$item1, $item2, $item3, $item4]);
 
-        self::assertCount(2, $collection->getItem());
+        self::assertCount(3, $collection->getItem());
     }
 
     /**

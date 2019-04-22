@@ -31,6 +31,26 @@ final class Persister implements PersisterInterface
     }
 
     /**
+     * Get cached collection schema.
+     *
+     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
+     *
+     * @return null|\PostmanGenerator\Schemas\CollectionSchema
+     */
+    public function getCachedCollection(ConfigInterface $config): ?CollectionSchema
+    {
+        $filename = $this->resolveFilename($config->getFilename(), $config->overrideExistingCollection());
+        $cachedFilePath = \sprintf('%s/%s-cached', $config->getExportDir(), $filename);
+
+        if ($this->filesystem->exists($cachedFilePath) === false) {
+            return null;
+        }
+
+        /** @noinspection UnserializeExploitsInspection */
+        return \unserialize($this->filesystem->read($cachedFilePath));
+    }
+
+    /**
      * Get serializer.
      *
      * @return \PostmanGenerator\Interfaces\SerializerInterface
@@ -50,11 +70,8 @@ final class Persister implements PersisterInterface
      */
     public function persist(ConfigInterface $config, CollectionSchema $collection): void
     {
-        $filename = $this->resolveFilename($config->getFilename(), $config->overrideExistingCollection());
-        $filepath = $this->getFilePath($config, $filename);
-        $content = $this->resolveContent($collection, $filepath, $config->overrideExistingCollection());
-
-        $this->filesystem->save($filepath, $content);
+        $this->persistCollection($config, $collection);
+        $this->persistCollectionCache($config, $collection);
     }
 
     /**
@@ -71,25 +88,55 @@ final class Persister implements PersisterInterface
     }
 
     /**
+     * Persist collection to storage.
+     *
+     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
+     * @param \PostmanGenerator\Schemas\CollectionSchema $collection
+     *
+     * @return void
+     */
+    private function persistCollection(ConfigInterface $config, CollectionSchema $collection): void
+    {
+        $filename = $this->resolveFilename($config->getFilename(), $config->overrideExistingCollection());
+        $filePath = $this->getFilePath($config, $filename);
+        $content = $this->resolveContent($collection, $config);
+
+        $this->filesystem->save($filePath, $content);
+    }
+
+    /**
+     * Persist collection cache to storage.
+     *
+     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
+     * @param \PostmanGenerator\Schemas\CollectionSchema $collection
+     *
+     * @return void
+     */
+    private function persistCollectionCache(ConfigInterface $config, CollectionSchema $collection): void
+    {
+        $filename = $this->resolveFilename($config->getFilename(), $config->overrideExistingCollection());
+        $cachedFilePath = \sprintf('%s/%s-cached', $config->getExportDir(), $filename);
+
+        $this->filesystem->save($cachedFilePath, \serialize($collection));
+    }
+
+    /**
      * Resolve content.
      *
      * @param \PostmanGenerator\Schemas\CollectionSchema $collection
-     * @param string $file
-     * @param bool $override
+     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
      *
      * @return string
      */
-    private function resolveContent(CollectionSchema $collection, string $file, bool $override): string
+    private function resolveContent(CollectionSchema $collection, ConfigInterface $config): string
     {
-        $data = $this->serializer->serialize($collection);
+        $fromCache = $this->getCachedCollection($config);
 
-        if ($override) {
-            $existing = \json_decode($this->filesystem->read($file), true) ?? [];
-
-            $data['item'] = \array_merge($existing['item'] ?? [], $data['item'] ?? []);
+        if ($fromCache !== null) {
+            $collection->addItems($fromCache->getItem());
         }
 
-        return \json_encode($data);
+        return \json_encode($this->serializer->serialize($collection));
     }
 
     /**

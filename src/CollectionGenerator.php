@@ -31,10 +31,15 @@ class CollectionGenerator implements GeneratorInterface
      * CollectionGenerator constructor.
      *
      * @param \PostmanGenerator\Schemas\CollectionSchema $collectionObject
+     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
      */
-    public function __construct(CollectionSchema $collectionObject)
+    public function __construct(CollectionSchema $collectionObject, ConfigInterface $config)
     {
-        $this->collectionObject = $collectionObject;
+        $this->config = $config;
+
+        $this->collectionObject = $this
+                ->getPersister()
+                ->getCachedCollection($config) ?? $collectionObject;
     }
 
     /**
@@ -67,7 +72,7 @@ class CollectionGenerator implements GeneratorInterface
     /**
      * Get collection.
      *
-     * @return \PostmanGenerator\Objects\CollectionSchema
+     * @return \PostmanGenerator\Schemas\CollectionSchema
      */
     public function getCollection(): CollectionSchema
     {
