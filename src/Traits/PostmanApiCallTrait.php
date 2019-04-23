@@ -1,36 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace PostmanGenerator\Bridge\PHPUnit;
+namespace PostmanGenerator\Traits;
 
-use PHPUnit\Framework\TestCase;
-use PostmanGenerator\Bridge\PostmanRequestParser;
 use PostmanGenerator\CollectionGenerator;
 use PostmanGenerator\Interfaces\RequestExampleInterface;
 use PostmanGenerator\Interfaces\ResponseParserInterface;
+use PostmanGenerator\Parsers\PostmanRequestParser;
 
-abstract class AbstractPostmanTestCase extends TestCase
+trait PostmanApiCallTrait
 {
-    /** @var string */
-    protected $collectionName;
-
-    /**
-     * Get collection generator instance.
-     *
-     * @return \PostmanGenerator\CollectionGenerator
-     */
-    abstract public function getCollectionGenerator(): CollectionGenerator;
-
-    /**
-     * Get response parser.
-     *
-     * @return \PostmanGenerator\Interfaces\ResponseParserInterface
-     */
-    abstract public function getResponseParser(): ResponseParserInterface;
-
     /**
      * Postman Collection Generator api call helper.
      *
+     * @param \PostmanGenerator\CollectionGenerator $generator
+     * @param \PostmanGenerator\Interfaces\ResponseParserInterface $responseParser
      * @param string $exampleName
      * @param string $requestName
      * @param string $folderName
@@ -43,6 +27,8 @@ abstract class AbstractPostmanTestCase extends TestCase
      * @return \PostmanGenerator\Interfaces\RequestExampleInterface
      */
     public function postmanApiCall(
+        CollectionGenerator $generator,
+        ResponseParserInterface $responseParser,
         string $exampleName,
         string $requestName,
         string $folderName,
@@ -52,8 +38,6 @@ abstract class AbstractPostmanTestCase extends TestCase
         ?array $headers = null,
         ?array $originalBody = null
     ): RequestExampleInterface {
-        $generator = $this->getCollectionGenerator();
-
         $baseUrl = $generator->getConfig()->getBaseUrl();
 
         $requestCollection = $generator->add($folderName);
@@ -76,7 +60,7 @@ abstract class AbstractPostmanTestCase extends TestCase
                 $body ?? [],
                 $headers ?? []
             ),
-            $this->getResponseParser()
+            $responseParser
         );
     }
 }

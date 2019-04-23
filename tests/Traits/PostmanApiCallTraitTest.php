@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\PostmanGenerator\Bridge\PHPUnit;
+namespace Tests\PostmanGenerator\Traits;
 
 use PostmanGenerator\Config;
 use Tests\PostmanGenerator\Stubs\PostmanTestCaseStub;
@@ -10,7 +10,7 @@ use Tests\PostmanGenerator\TestCase;
 /**
  * @covers \PostmanGenerator\Bridge\PHPUnit\AbstractPostmanTestCase
  */
-final class AbstractPostmanTest extends TestCase
+final class PostmanApiCallTraitTest extends TestCase
 {
     /**
      * Test api call to create collection request with postman example.
@@ -27,6 +27,8 @@ final class AbstractPostmanTest extends TestCase
         $instance1->setGenerator($generator);
 
         $instance1->postmanApiCall(
+            $instance1->getCollectionGenerator(),
+            $instance1->getResponseParser(),
             'Create Pokemon Successful',
             'Create Pokemon',
             'Pokemons',
@@ -37,6 +39,8 @@ final class AbstractPostmanTest extends TestCase
         );
 
         $instance1->postmanApiCall(
+            $instance1->getCollectionGenerator(),
+            $instance1->getResponseParser(),
             'Create Trainer Successful',
             'Create Trainer',
             'Trainers',

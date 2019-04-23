@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PostmanGenerator\Bridge;
+namespace PostmanGenerator\Parsers;
 
 use PostmanGenerator\Interfaces\RequestParserInterface;
 use PostmanGenerator\Schemas\DescriptionSchema;

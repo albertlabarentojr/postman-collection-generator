@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace Tests\PostmanGenerator\Stubs;
 
-use PostmanGenerator\Bridge\PHPUnit\AbstractPostmanTestCase;
 use PostmanGenerator\CollectionGenerator;
 use PostmanGenerator\Config;
 use PostmanGenerator\Interfaces\ResponseParserInterface;
 use PostmanGenerator\Schemas\CollectionSchema;
 use PostmanGenerator\Schemas\ResponseSchema;
+use PostmanGenerator\Traits\PostmanApiCallTrait;
 
-final class PostmanTestCaseStub extends AbstractPostmanTestCase
+final class PostmanTestCaseStub
 {
+    use PostmanApiCallTrait;
+
     /** @var \PostmanGenerator\CollectionGenerator */
     private $generator;
 
