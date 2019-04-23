@@ -5,9 +5,9 @@ namespace PostmanGenerator\Schemas;
 
 use PostmanGenerator\Interfaces\CollectionSchemaInterface;
 use PostmanGenerator\Interfaces\ItemableCollectionInterface;
+use PostmanGenerator\Interfaces\ItemSchemaInterface;
 
 /**
- * @method \Countable|CollectionSchemaInterface[] getItem()
  * @method self setItem(CollectionSchemaInterface[] $item)
  */
 abstract class AbstractItemableSchema extends AbstractSchema implements ItemableCollectionInterface
@@ -18,36 +18,38 @@ abstract class AbstractItemableSchema extends AbstractSchema implements Itemable
     /**
      * Add Collection item.
      *
-     * @param \PostmanGenerator\Interfaces\CollectionSchemaInterface $item
+     * @param \PostmanGenerator\Interfaces\ItemSchemaInterface $item
      *
      * @return \PostmanGenerator\Schemas\CollectionSchema
      */
-    public function addItem(CollectionSchemaInterface $item): AbstractItemableSchema
+    public function addItem(ItemSchemaInterface $item): AbstractItemableSchema
     {
-        if ($item instanceof ItemSchema || $item instanceof ItemableCollectionInterface) {
-            $currentPosition = null;
+        $currentPosition = null;
 
-            // Update existing item
-            /** @var self|\PostmanGenerator\Schemas\ItemSchema $existingItem */
-            /** @var self|\PostmanGenerator\Schemas\ItemSchema $item */
-            foreach ($this->item as $index => $existingItem) {
-                if ($existingItem->getName() === $item->getName()) {
-                    $currentPosition = $index;
+        // Update existing item
+        /** @var self|\PostmanGenerator\Schemas\ItemSchema $existingItem */
+        /** @var self|\PostmanGenerator\Schemas\ItemSchema $item */
+        foreach ($this->item as $index => $existingItem) {
+            // Schema must be an item.
+            $isItem = $existingItem instanceof ItemSchemaInterface && $item instanceof ItemSchemaInterface;
 
-                    /** @noinspection NotOptimalIfConditionsInspection */
-                    if ($item instanceof ItemableCollectionInterface) {
-                        $item->addItems($existingItem->getItem());
-                    }
+            if ($isItem && $existingItem->getName() === $item->getName()) {
+                $currentPosition = $index;
+
+                // If schema is itemable merge its items.
+                /** @noinspection NotOptimalIfConditionsInspection */
+                if ($item instanceof ItemableCollectionInterface) {
+                    $item->addItems($existingItem->getItem());
                 }
             }
-
-            // Insert new item
-            if ($currentPosition === null) {
-                $currentPosition = \count($this->item);
-            }
-
-            $this->item[$currentPosition] = $item;
         }
+
+        // Insert new item
+        if ($currentPosition === null) {
+            $currentPosition = \count($this->item);
+        }
+
+        $this->item[$currentPosition] = $item;
 
         return $this;
     }
@@ -63,6 +65,16 @@ abstract class AbstractItemableSchema extends AbstractSchema implements Itemable
             $this->addItem($item);
         }
 
+        return $this->item;
+    }
+
+    /**
+     * Get items.
+     *
+     * @return \Countable|CollectionSchemaInterface[]
+     */
+    public function getItem(): array
+    {
         return $this->item;
     }
 

@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Schemas;
 
+use PostmanGenerator\Interfaces\ItemSchemaInterface;
 use PostmanGenerator\Interfaces\PrePopulateInterface;
 
 /**
  * @method null|string getResponseId()
- * @method null|string getName()
  * @method null|RequestSchema getOriginalRequest()
  * @method null|string|int getResponseTime()
  * @method HeaderSchema[] getHeader()
@@ -22,7 +22,7 @@ use PostmanGenerator\Interfaces\PrePopulateInterface;
  * @method self setCode(int $code)
  * @method self setOriginalRequest(RequestSchema $request)
  */
-class ResponseSchema extends AbstractSchema implements PrePopulateInterface
+class ResponseSchema extends AbstractSchema implements PrePopulateInterface, ItemSchemaInterface
 {
     private const ID_PREFIX = 'response_';
 
@@ -61,6 +61,16 @@ class ResponseSchema extends AbstractSchema implements PrePopulateInterface
     public function beforeFill(): void
     {
         $this->responseId = $this->responseId ?? \uniqid(self::ID_PREFIX, true);
+    }
+
+    /**
+     * Get schema name identifier.
+     *
+     * @return null|string
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 
     /**

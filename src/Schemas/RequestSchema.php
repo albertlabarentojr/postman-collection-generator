@@ -10,7 +10,7 @@ use PostmanGenerator\Exceptions\InvalidRequestMethodException;
  * @method null|string getMethod()
  * @method null|UrlSchema getUrl()
  * @method null|AuthSchema getAuth()
- * @method null|HeaderSchema getHeader()
+ * @method null|HeaderSchema[] getHeader()
  * @method null|RequestBodySchema getBody()
  * @method self setDescription(DescriptionSchema $description)
  * @method self setUrl(UrlSchema $url)
@@ -52,8 +52,8 @@ class RequestSchema extends AbstractSchema
     /** @var \PostmanGenerator\Schemas\DescriptionSchema */
     protected $description;
 
-    /** @var \PostmanGenerator\Schemas\HeaderSchema */
-    protected $header;
+    /** @var \PostmanGenerator\Schemas\HeaderSchema[] */
+    protected $header = [];
 
     /** @var string */
     protected $method;

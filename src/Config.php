@@ -8,6 +8,9 @@ use PostmanGenerator\Interfaces\ConfigInterface;
 final class Config implements ConfigInterface
 {
     /** @var string */
+    private $baseUrl;
+
+    /** @var string */
     private $exportDir;
 
     /** @var string */
@@ -22,12 +25,28 @@ final class Config implements ConfigInterface
      * @param null|string $exportDir
      * @param null|string $filename
      * @param null|bool $overrideExisting
+     * @param null|string $baseUrl
      */
-    public function __construct(?string $exportDir = null, ?string $filename = null, ?bool $overrideExisting = null)
-    {
+    public function __construct(
+        ?string $exportDir = null,
+        ?string $filename = null,
+        ?bool $overrideExisting = null,
+        ?string $baseUrl = null
+    ) {
         $this->exportDir = $exportDir ?? __DIR__;
         $this->filename = $filename ?? 'postman-collection';
         $this->overrideExisting = $overrideExisting ?? false;
+        $this->baseUrl = $baseUrl ?? 'https://example.com/';
+    }
+
+    /**
+     * Get base url.
+     *
+     * @return string
+     */
+    public function getBaseUrl(): string
+    {
+        return $this->baseUrl;
     }
 
     /**

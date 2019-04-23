@@ -3,14 +3,25 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Schemas;
 
+use PostmanGenerator\Interfaces\ItemSchemaInterface;
+
 /**
- * @method null|string getName()
  * @method self setName(string $name)
  */
-class CollectionSubItemSchema extends AbstractItemableSchema
+class CollectionSubItemSchema extends AbstractItemableSchema implements ItemSchemaInterface
 {
     /** @var string */
     protected $name;
+
+    /**
+     * Get schema name identifier.
+     *
+     * @return null|string
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
 
     /**
      * Serialize object as array.

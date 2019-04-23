@@ -23,7 +23,8 @@ class CollectionGeneratorTest extends TestCase
     {
         $postmanCollection = new CollectionSchema();
 
-        $collection = new CollectionGenerator($postmanCollection, new Config($this->collectionDir, $this->collectionFile));
+        $collection = new CollectionGenerator($postmanCollection, new Config($this->collectionDir,
+            $this->collectionFile));
 
         $description = new DescriptionSchema(['content' => 'content-test']);
 

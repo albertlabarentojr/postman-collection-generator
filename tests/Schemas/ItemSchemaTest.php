@@ -19,8 +19,8 @@ class ItemSchemaTest extends SchemaTestCase
     {
         $item = new ItemSchema();
         $request = new RequestSchema();
-        $response1 = new ResponseSchema();
-        $response2 = new ResponseSchema();
+        $response1 = new ResponseSchema(['name' => 'response1']);
+        $response2 = new ResponseSchema(['name' => 'response2']);
 
         $item->setName('Add staff member to restaurant');
         $item->setRequest($request);

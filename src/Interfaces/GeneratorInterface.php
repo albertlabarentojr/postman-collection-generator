@@ -22,6 +22,13 @@ interface GeneratorInterface extends Serializable
     public function getCollection(): CollectionSchema;
 
     /**
+     * Get configuration.
+     *
+     * @return \PostmanGenerator\Interfaces\ConfigInterface
+     */
+    public function getConfig(): ConfigInterface;
+
+    /**
      * Set config.
      *
      * @param \PostmanGenerator\Interfaces\ConfigInterface $config

@@ -3,15 +3,16 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Schemas;
 
+use PostmanGenerator\Interfaces\ItemSchemaInterface;
+
 /**
- * @method null|string getName()
  * @method null|RequestSchema getRequest()
  * @method ResponseSchema[] getResponse()
  * @method self setName(string $name)
  * @method self setRequest(RequestSchema $request)
  * @method self setResponse(ResponseSchema[] $responses)
  */
-class ItemSchema extends AbstractSchema
+class ItemSchema extends AbstractItemableSchema implements ItemSchemaInterface
 {
     /** @var string */
     protected $name;
@@ -31,9 +32,21 @@ class ItemSchema extends AbstractSchema
      */
     public function addResponse(ResponseSchema $response): self
     {
-        $this->response[] = $response;
+        $this->addItems([$response]);
+
+        $this->response = $this->getItem();
 
         return $this;
+    }
+
+    /**
+     * Get schema name identifier.
+     *
+     * @return null|string
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 
     /**

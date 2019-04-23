@@ -6,6 +6,13 @@ namespace PostmanGenerator\Interfaces;
 interface ConfigInterface
 {
     /**
+     * Get base url.
+     *
+     * @return string
+     */
+    public function getBaseUrl(): string;
+
+    /**
      * Get dir to export collection.
      *
      * @return string

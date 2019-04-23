@@ -122,7 +122,7 @@ class CollectionGenerator implements GeneratorInterface
      *
      * @return \PostmanGenerator\Interfaces\ConfigInterface
      */
-    private function getConfig(): ConfigInterface
+    public function getConfig(): ConfigInterface
     {
         return $this->config ?? new Config();
     }
