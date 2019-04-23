@@ -18,7 +18,23 @@ Code while making your api well documented.
 ## Postman Schema version
 Package currently supports https://schema.getpostman.com/json/collection/v2.0.0/docs/index.html
 
-## Usage
+## Easy Usage
+### Include \PostmanGenerator\Traits\PostmanApiCallTrait in your test cases
+```php
+$this->postmanApiCall(
+    $this->getCollectionGenerator(),
+    $this->getResponseParser(),
+    'Create Trainer Successful', // Example name
+    'Create Trainer', // Api call request name
+    'Trainers', // Collection name
+    'POST',
+    'api/v1/trainers',
+    ['trainer_name' => 'Trainer'],
+    ['Authentication' => 'Bearer: AuthToken']
+);
+```
+
+## Using CollectionGenerator
 #### Configure your collection.
 
 Using phpunit may require you to understand its life cycle to instantiate objects dynamically.
@@ -158,9 +174,11 @@ public static function tearDownAfterClass()
                 - [1] ```Create Trainer Not Found```
                 
 ## Releases
+### master - v1.2.2
+- Added PostmanGenerator helper [PostmanApiCallTrait](https://github.com/AlbertLabarento/postman-collection-generator/blob/master/src/Traits/PostmanApiCallTrait.php)
 ### master - v1.2.1
 - Resolved Issue #3
-- Added caching for generated collection.
+- Added caching mechanism for generated collection.
 - Added Persistence mechanism thanks to [Nathan Page](https://github.com/natepage)
 ### master - v1.1.1
 - Updated documentation.
