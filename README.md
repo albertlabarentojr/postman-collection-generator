@@ -161,7 +161,7 @@ public static function tearDownAfterClass()
 ### master - v1.2.1
 - Resolved Issue #3
 - Added caching for generated collection.
-- Added Persistence mechanism thanks to [Nathan Page](#https://github.com/natepage)
+- Added Persistence mechanism thanks to [Nathan Page](https://github.com/natepage)
 ### master - v1.1.1
 - Updated documentation.
 ### master - v1.0
