@@ -8,6 +8,7 @@ use PostmanGenerator\Config;
 use PostmanGenerator\Schemas\CollectionSchema;
 use PostmanGenerator\Schemas\DescriptionSchema;
 use PostmanGenerator\Serializer;
+use Tests\PostmanGenerator\Stubs\RequestParserStub;
 
 /**
  * @covers \PostmanGenerator\CollectionGenerator
@@ -52,6 +53,7 @@ class CollectionGeneratorTest extends TestCase
     {
         $postmanCollection = new CollectionSchema();
 
+        // First instance
         $collection = new CollectionGenerator(
             $postmanCollection,
             new Config($this->collectionDir, $this->collectionFile)
@@ -61,26 +63,71 @@ class CollectionGeneratorTest extends TestCase
 
         $collection->add('Trainers.Laboratories', ['description' => $description]);
         $collection->add('Trainers.Inventory.Pokeballs');
-        $collection->add('Trainers.Pokemons');
+        $pokemons = $collection->add('Trainers.Pokemons');
+
+        $request = new RequestParserStub([]);
+
+        $createPokemon = $pokemons->addRequest('Create Pokemon', $request);
+
+        $response1 = $this->getResponseParserInstance([
+            'name' => 'Create Successful',
+            'responseId' => 'id',
+            'originalRequest' => $request->parseRequest()
+        ]);
+        $createPokemon->addExample('Create Successful', $request, $response1);
 
         $collection->generate();
+
+        // Second Instance
+        $collection2 = new CollectionGenerator(
+            $postmanCollection,
+            new Config($this->collectionDir, $this->collectionFile)
+        );
+
+        $description2 = new DescriptionSchema(['content' => 'content-test']);
+
+        $collection2->add('Trainers.Laboratories', ['description' => $description2]);
+        $collection2->add('Trainers.Inventory.Pokeballs');
+        $pokemons2 = $collection2->add('Trainers.Pokemons');
+
+        $response2 = $this->getResponseParserInstance([
+            'name' => 'Not Found',
+            'responseId' => 'id',
+            'originalRequest' => $request->parseRequest()
+        ]);
+
+        $createPokemon2 = $pokemons2->addRequest('Create Pokemon', $request);
+        $createPokemon2->addExample('Not Found', $request, $response2);
+
+        $collection2->generate();
 
         $this->assertGeneratedCollection($this->collectionDir, $this->collectionFile, [
             'info' => null,
             'auth' => null,
             'item' => [
                 [
-                    'description' => $description->toArray(),
+                    'description' => $description2->toArray(),
                     'item' => [
                         ['name' => 'Laboratories', 'item' => [], '_postman_isSubFolder' => true],
                         [
                             'name' => 'Inventory',
-                            'item' => [
-                                ['name' => 'Pokeballs', 'item' => [], '_postman_isSubFolder' => true]
-                            ],
+                            'item' => [['name' => 'Pokeballs', 'item' => [], '_postman_isSubFolder' => true]],
                             '_postman_isSubFolder' => true
                         ],
-                        ['name' => 'Pokemons', 'item' => [], '_postman_isSubFolder' => true]
+                        [
+                            'name' => 'Pokemons',
+                            'item' => [
+                                [
+                                    'name' => 'Create Pokemon',
+                                    'request' => (new RequestParserStub([]))->parseRequest()->toArray(),
+                                    'response' => [
+                                        (new Serializer())->serialize($response1->parseResponse()),
+                                        (new Serializer())->serialize($response2->parseResponse())
+                                    ]
+                                ]
+                            ],
+                            '_postman_isSubFolder' => true
+                        ]
                     ],
                     'name' => 'Trainers'
                 ]

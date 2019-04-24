@@ -44,6 +44,8 @@ final class PostmanTestCaseStub
     }
 
     /**
+     * Get response parser.
+     *
      * @return mixed|\PostmanGenerator\Interfaces\ResponseParserInterface
      */
     public function getResponseParserInstance()

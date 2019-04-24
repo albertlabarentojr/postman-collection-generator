@@ -32,7 +32,7 @@ class ItemSchema extends AbstractItemableSchema implements ItemSchemaInterface
      */
     public function addResponse(ResponseSchema $response): self
     {
-        $this->addItems([$response]);
+        $this->addItem($response);
 
         $this->response = $this->getItem();
 

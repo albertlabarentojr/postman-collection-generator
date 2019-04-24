@@ -99,7 +99,7 @@ final class Persister implements PersisterInterface
     {
         $filename = $this->resolveFilename($config->getFilename(), $config->overrideExistingCollection());
         $filePath = $this->getFilePath($config, $filename);
-        $content = $this->resolveContent($collection, $config);
+        $content = $this->resolveContent($collection);
 
         $this->filesystem->save($filePath, $content);
     }
@@ -124,18 +124,11 @@ final class Persister implements PersisterInterface
      * Resolve content.
      *
      * @param \PostmanGenerator\Schemas\CollectionSchema $collection
-     * @param \PostmanGenerator\Interfaces\ConfigInterface $config
      *
      * @return string
      */
-    private function resolveContent(CollectionSchema $collection, ConfigInterface $config): string
+    private function resolveContent(CollectionSchema $collection): string
     {
-        $fromCache = $this->getCachedCollection($config);
-
-        if ($fromCache !== null) {
-            $collection->addItems($fromCache->getItem());
-        }
-
         return \json_encode($this->serializer->serialize($collection));
     }
 

@@ -219,6 +219,39 @@ abstract class TestCase extends PhpunitTestCase
     }
 
     /**
+     * Get response parser.
+     *
+     * @param array|null $data
+     *
+     * @return mixed|\PostmanGenerator\Interfaces\ResponseParserInterface
+     */
+    protected function getResponseParserInstance(?array $data = null)
+    {
+        return new class($data) implements ResponseParserInterface
+        {
+            /**
+             * @var null|mixed[]
+             */
+            private $data;
+
+            public function __construct(?array $data = null)
+            {
+                $this->data = $data;
+            }
+
+            /**
+             * Parse response from given data.
+             *
+             * @return \PostmanGenerator\Schemas\ResponseSchema
+             */
+            public function parseResponse(): ResponseSchema
+            {
+                return new ResponseSchema($this->data);
+            }
+        };
+    }
+
+    /**
      * Get restaurant collection with configs.
      *
      * @param \PostmanGenerator\Interfaces\ConfigInterface $config
