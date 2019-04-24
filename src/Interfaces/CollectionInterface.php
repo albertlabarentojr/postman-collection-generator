@@ -22,9 +22,9 @@ interface CollectionInterface extends FillableCollectionInterface
      *
      * @param string $requestName
      *
-     * @return \PostmanGenerator\Interfaces\CollectionRequestInterface
+     * @return \PostmanGenerator\Interfaces\CollectionInterface
      */
-    public function addSubCollection(string $requestName): CollectionRequestInterface;
+    public function addSubCollection(string $requestName): self;
 
     /**
      * Get collection description.

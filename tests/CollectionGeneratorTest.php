@@ -23,19 +23,67 @@ class CollectionGeneratorTest extends TestCase
     {
         $postmanCollection = new CollectionSchema();
 
-        $collection = new CollectionGenerator($postmanCollection, new Config($this->collectionDir,
-            $this->collectionFile));
+        $collection = new CollectionGenerator(
+            $postmanCollection,
+            new Config($this->collectionDir, $this->collectionFile)
+        );
 
         $description = new DescriptionSchema(['content' => 'content-test']);
 
-        $collection->add('Restaurant')->setDescription($description);
+        $collection->add('Restaurant', \compact('description'));
         $collection->generate();
 
         $this->assertGeneratedCollection($this->collectionDir, $this->collectionFile, [
             'info' => null,
             'auth' => null,
             'item' => [
-                ['description' => 'content-test', 'item' => [], 'name' => 'Restaurant']
+                ['description' => $description->toArray(), 'item' => [], 'name' => 'Restaurant']
+            ],
+            'variable' => []
+        ]);
+    }
+
+    /**
+     * Test add collection should support nested sub collections.
+     *
+     * @return void
+     */
+    public function testAddCollectionNestedSubCollection(): void
+    {
+        $postmanCollection = new CollectionSchema();
+
+        $collection = new CollectionGenerator(
+            $postmanCollection,
+            new Config($this->collectionDir, $this->collectionFile)
+        );
+
+        $description = new DescriptionSchema(['content' => 'content-test']);
+
+        $collection->add('Trainers.Laboratories', ['description' => $description]);
+        $collection->add('Trainers.Inventory.Pokeballs');
+        $collection->add('Trainers.Pokemons');
+
+        $collection->generate();
+
+        $this->assertGeneratedCollection($this->collectionDir, $this->collectionFile, [
+            'info' => null,
+            'auth' => null,
+            'item' => [
+                [
+                    'description' => $description->toArray(),
+                    'item' => [
+                        ['name' => 'Laboratories', 'item' => [], '_postman_isSubFolder' => true],
+                        [
+                            'name' => 'Inventory',
+                            'item' => [
+                                ['name' => 'Pokeballs', 'item' => [], '_postman_isSubFolder' => true]
+                            ],
+                            '_postman_isSubFolder' => true
+                        ],
+                        ['name' => 'Pokemons', 'item' => [], '_postman_isSubFolder' => true]
+                    ],
+                    'name' => 'Trainers'
+                ]
             ],
             'variable' => []
         ]);

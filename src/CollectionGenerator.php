@@ -27,6 +27,9 @@ class CollectionGenerator implements GeneratorInterface
      */
     private $persister;
 
+    /** @var mixed[] */
+    private $savedFillable = [];
+
     /**
      * CollectionGenerator constructor.
      *
@@ -47,16 +50,35 @@ class CollectionGenerator implements GeneratorInterface
      *
      * @param string $collectionName
      *
+     * @param array|null $config
+     *
      * @return \PostmanGenerator\Interfaces\CollectionInterface
      */
-    public function add(string $collectionName): CollectionInterface
+    public function add(string $collectionName, ?array $config = null): CollectionInterface
     {
+        $collectionNames = \explode('.', $collectionName);
+
+        if ($config !== null) {
+            $this->savedFillable = $config;
+        }
+
         $collectionItem = new CollectionItemSchema();
-        $collectionItem->setName($collectionName);
 
-        $this->collectionObject->addItem($collectionItem);
+        $collection = new Collection($collectionItem);
 
-        return new Collection($collectionItem);
+        foreach ($collectionNames as $index => $name) {
+            if ($index === 0) {
+                $collectionItem->setName($name);
+                $collectionItem->fill($this->savedFillable);
+                $this->collectionObject->addItem($collectionItem);
+
+                continue;
+            }
+
+            $collection = $collection->addSubCollection($name);
+        }
+
+        return $collection;
     }
 
     /**
@@ -77,6 +99,16 @@ class CollectionGenerator implements GeneratorInterface
     public function getCollection(): CollectionSchema
     {
         return $this->collectionObject;
+    }
+
+    /**
+     * Get config.
+     *
+     * @return \PostmanGenerator\Interfaces\ConfigInterface
+     */
+    public function getConfig(): ConfigInterface
+    {
+        return $this->config ?? new Config();
     }
 
     /**
@@ -115,16 +147,6 @@ class CollectionGenerator implements GeneratorInterface
     public function toArray(): array
     {
         return $this->getPersister()->getSerializer()->serialize($this->collectionObject);
-    }
-
-    /**
-     * Get config.
-     *
-     * @return \PostmanGenerator\Interfaces\ConfigInterface
-     */
-    public function getConfig(): ConfigInterface
-    {
-        return $this->config ?? new Config();
     }
 
     /**

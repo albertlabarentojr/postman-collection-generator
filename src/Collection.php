@@ -5,6 +5,7 @@ namespace PostmanGenerator;
 
 use PostmanGenerator\Interfaces\CollectionInterface;
 use PostmanGenerator\Interfaces\CollectionRequestInterface;
+use PostmanGenerator\Interfaces\ItemableCollectionInterface;
 use PostmanGenerator\Interfaces\RequestExampleInterface;
 use PostmanGenerator\Interfaces\RequestParserInterface;
 use PostmanGenerator\Schemas\CollectionItemSchema;
@@ -23,9 +24,9 @@ class Collection implements CollectionInterface
     /**
      * Collection constructor.
      *
-     * @param \PostmanGenerator\Schemas\CollectionItemSchema $collectionItem
+     * @param \PostmanGenerator\Interfaces\ItemableCollectionInterface $collectionItem
      */
-    public function __construct(CollectionItemSchema $collectionItem)
+    public function __construct(ItemableCollectionInterface $collectionItem)
     {
         $this->collectionItem = $collectionItem;
     }
@@ -35,16 +36,16 @@ class Collection implements CollectionInterface
      *
      * @param string $requestName
      *
-     * @return \PostmanGenerator\Interfaces\CollectionRequestInterface
+     * @return \PostmanGenerator\Interfaces\CollectionInterface
      */
-    public function addSubCollection(string $requestName): CollectionRequestInterface
+    public function addSubCollection(string $requestName): CollectionInterface
     {
         $collectionSubItem = new CollectionSubItemSchema();
         $collectionSubItem->setName($requestName);
 
         $this->collectionItem->addItem($collectionSubItem);
 
-        return new CollectionRequest($collectionSubItem);
+        return new self($collectionSubItem);
     }
 
     /**

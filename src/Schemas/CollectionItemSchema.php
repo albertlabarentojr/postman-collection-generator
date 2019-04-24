@@ -8,11 +8,11 @@ use PostmanGenerator\Interfaces\ItemSchemaInterface;
 /**
  * @method null|string getDescription()
  * @method self setName(string $name)
- * @method self setDescription(string $description)
+ * @method self setDescription(DescriptionSchema $description)
  */
 class CollectionItemSchema extends AbstractItemableSchema implements ItemSchemaInterface
 {
-    /** @var string */
+    /** @var \PostmanGenerator\Schemas\DescriptionSchema */
     protected $description;
 
     /** @var string */

@@ -61,7 +61,7 @@ abstract class TestCase extends PhpunitTestCase
     {
         $filepath = \sprintf('%s/%s.json', $directory, $file);
 
-        self::assertEquals(\json_decode(\file_get_contents($filepath), true), $expected);
+        self::assertEquals($expected, \json_decode(\file_get_contents($filepath), true));
     }
 
     /**
