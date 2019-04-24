@@ -68,14 +68,13 @@ final class PostmanRequestParser implements RequestParserInterface
     {
         $headers = $this->headers ?? [];
 
-        $headers[] = [
-            new HeaderSchema([
-                'key' => 'Content-Type',
-                'name' => 'Content-Type',
-                'value' => 'application/json',
-                'type' => 'text'
-            ])
-        ];
+        $headers[] = new HeaderSchema([
+            'key' => 'Content-Type',
+            'disabled' => false,
+            'name' => 'Content-Type',
+            'value' => 'application/json',
+            'type' => 'text'
+        ]);
 
         return new RequestSchema([
             'body' => new RequestBodySchema([

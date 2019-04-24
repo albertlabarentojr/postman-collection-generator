@@ -40,9 +40,9 @@ trait PostmanApiCallTrait
     ): RequestExampleInterface {
         $baseUrl = $generator->getConfig()->getBaseUrl();
 
-        $requestCollection = $generator->add($folderName);
+        $collection = $generator->add($folderName);
 
-        $addedRequest = $requestCollection->addRequest(
+        $request = $collection->addRequest(
             $requestName,
             new PostmanRequestParser(
                 $method,
@@ -52,7 +52,7 @@ trait PostmanApiCallTrait
             )
         );
 
-        return $addedRequest->addExample(
+        return $request->addExample(
             $exampleName,
             new PostmanRequestParser(
                 $method,
