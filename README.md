@@ -43,7 +43,7 @@ $this->postmanApiCall(
     'Create Trainer's Pokemon', // Api call request name
     'Trainers.Pokemons', // Collection name
     'POST',
-    'api/v1/trainers/1/pokemon',
+    'api/v1/trainers/1/pokemons',
     ['pokemon_name' => 'Pika Chu'],
     ['Authentication' => 'Bearer: AuthToken']
 );
