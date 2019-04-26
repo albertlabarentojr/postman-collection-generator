@@ -20,7 +20,11 @@ Package currently supports https://schema.getpostman.com/json/collection/v2.0.0/
 
 ## Easy Usage
 ### Include \PostmanGenerator\Traits\PostmanApiCallTrait in your test cases
+
+#### Configure your collection.
 ```php
+// Include to your test api call method.
+
 $this->postmanApiCall(
     static::getCollectionGenerator(),
     static::getResponseParser(),
@@ -32,6 +36,33 @@ $this->postmanApiCall(
     ['trainer_name' => 'Ash Lee'],
     ['Authentication' => 'Bearer: AuthToken']
 );
+
+public static function getCollectionGenerator(): CollectionGenerator
+{
+    $collection = new CollectionSchema([
+         info' => new InfoSchema([
+            'name' => 'Pokemon Api',
+            'description' => 'Gotta catch them all. When you are a developer but loves pokemon.',
+            'schema' => 'https://schema.getpostman.com/json/collection/v2.0.0/docs/index.html'
+        ])
+    ]);
+    
+    if($this->postmanGenerator === null){
+        $this->postmanGenerator = new CollectionGenerator($collection, new Config());
+    }
+    
+    return $this->postmanGenerator;
+}
+
+public static function getResponseParser(): ResponseParserInterface
+{
+    return new ResponseParser($this->respose);
+}
+
+public static function tearDownAfterClass()
+{
+    $this->postmanGenerator->generate();
+}
 ```
 
 ### With Sub Folder
