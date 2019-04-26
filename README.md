@@ -22,145 +22,41 @@ Package currently supports https://schema.getpostman.com/json/collection/v2.0.0/
 ### Include \PostmanGenerator\Traits\PostmanApiCallTrait in your test cases
 ```php
 $this->postmanApiCall(
-    $this->getCollectionGenerator(),
-    $this->getResponseParser(),
+    static::getCollectionGenerator(),
+    static::getResponseParser(),
     'Create Trainer Successful', // Example name
     'Create Trainer', // Api call request name
     'Trainers', // Collection name
     'POST',
     'api/v1/trainers',
-    ['trainer_name' => 'Trainer'],
+    ['trainer_name' => 'Ash Lee'],
     ['Authentication' => 'Bearer: AuthToken']
 );
 ```
 
-## Using CollectionGenerator
-#### Configure your collection.
-
-Using phpunit may require you to understand its life cycle to instantiate objects dynamically.
-**PHPUNIT** **setUpBeforeClass()**
-
-Create your collection.
-See https://learning.getpostman.com/docs/postman/collections/creating_collections/#how-to-create-collections
+### With Sub Folder
 ```php
-use PostmanGenerator\Objects\CollectionObject;
-
-$collectionObject = new CollectionObject([
-     info' => new InfoObject([
-        'description' => 'PokemonApi',
-        'name' => 'Gotta catch them all. When you are a dev but loves pokemon.',
-        'schema' => 'https://schema.getpostman.com/json/collection/v2.0.0/docs/index.html'
-    ])
-]);
-```
-
-
-```php
-use PostmanGenerator\Objects\Config\ConfigObject;
-use PostmanGenerator\CollectionGenerator;
-use PostmanGenerator\Serializer;
-
-// Configure your postman generator.
-$postmanConfig =  new ConfigObject();
-$postmanConfig->setExportDirectory(
-    __DIR__ . '/../../postman-collection.json'
-);
-
-// You may override your existing collection, just in case an existing collection already exists.
-$postmanConfig->setOverrideExisting(true);
-
-// Set your api generator globaly to be accessible to your test classes.
-self::$apiGenerator = new CollectionGenerator(
-    $collectionObject,
-    new Serializer(),
-    $postmanConfig
-);
-```
-
-
-
-#### Saving a request to a collection.
-See. https://learning.getpostman.com/docs/postman/collections/creating_collections/#saving-a-request-to-a-collection
-**PHPUNIT** **setUpBeforeClass()**
-```php
-self::$pokemonTrainerCollection = self::$apiGenerator->add('Pokemon Trainer');
-
-self::$pokemonTrainerCollection['createTrainer'] = self::$pokemonTrainerCollection->addRequest(
-    'Create Trainer',
-    new RequestParser('POST', '{{baseUrl}}/v1/trainers', [])
-);
-```
-
-#### Adding examples to your request.
-See https://learning.getpostman.com/docs/postman/collections/examples/
-```php
-$this->addRequestExample(
-    self::$pokemonTrainerCollection['createTrainer'],
-    'Validation Failed',
+$this->postmanApiCall(
+    static::getCollectionGenerator(),
+    static::getResponseParser(),
+    'Add Pokemon Successful', // Example name
+    'Create Trainer's Pokemon', // Api call request name
+    'Trainers.Pokemons', // Collection name
     'POST',
-    '/v1/trainers',
-    [] // empty payload will throw validation error.
+    'api/v1/trainers/1/pokemon',
+    ['pokemon_name' => 'Pika Chu'],
+    ['Authentication' => 'Bearer: AuthToken']
 );
 ```
-You may want to create a method to add request example.
-```php
-/** @var string[]  */
-protected static $statusCodeText = [
-    404 => 'Not Found',
-    200 => 'Ok',
-    500 => 'Server Error',
-    204 => 'No Content',
-    201 => 'Created',
-    409 => 'Conflict',
-    400 => 'Bad Request',
-    403 => 'Forbidden',
-    401 => 'Unauthorized',
-    422 => 'Unprocessable Entity',
-    203 => 'Non-Authoritative'
-];
 
-/**
- * Add request example.
- *
- * @param \PostmanGenerator\RequestExample $requestExample
- * @param string $exampleName
- * @param string $method
- * @param string $url
- * @param mixed[] $body
- * @param null|mixed[] $headers
- *
- * @return \PostmanGenerator\Interfaces\RequestExampleInterface
- */
-protected function addRequestExample(
-    RequestExample $requestExample,
-    string $exampleName,
-    string $method,
-    string $url,
-    array $body,
-    ?array $headers = null
-): RequestExampleInterface {
-    return $requestExample->addExample(
-        $exampleName,
-        new RequestParser($method, '{{baseUrl}}/' . $url, $body, $headers),
-        new ResponseParser($this->response, self::$statusCodeText[$this->response->getStatusCode()])
-    );
-}
-```
+### Output
+#### Collection
+![Drag Racing](collection.png)
 
-#### Then after each tests classes that was executed, generate a postman collection.
-```php
-/**
- * Generate postman collection.
- *
- * @throws \PostmanGenerator\Exceptions\MissingConfigurationKeyException
- */
-public static function tearDownAfterClass()
-{
-    parent::tearDownAfterClass();
+#### Collection Request and Example Response
+![Drag Racing](example.png)
+![Drag Racing](example-2.png)
 
-    self::$apiGenerator->generate();
-}
-```
 
 ## Schema Structure
 - CollectionSchema **PokemonApi**
@@ -174,13 +70,13 @@ public static function tearDownAfterClass()
                 - [1] ```Create Trainer Not Found```
                 
 ## Releases
-### master - v1.2.2
+### v1.2.2
 - Added PostmanGenerator helper [PostmanApiCallTrait](https://github.com/AlbertLabarento/postman-collection-generator/blob/master/src/Traits/PostmanApiCallTrait.php)
-### master - v1.2.1
+### v1.2.1
 - Resolved Issue #3
 - Added caching mechanism for generated collection.
 - Added Persistence mechanism thanks to [Nathan Page](https://github.com/natepage)
-### master - v1.1.1
+### v1.1.1
 - Updated documentation.
-### master - v1.0
+### v1.0
 - Be able to modify existing collection.

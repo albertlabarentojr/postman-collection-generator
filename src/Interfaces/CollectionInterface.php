@@ -24,4 +24,3 @@ interface CollectionInterface extends FillableCollectionInterface
      */
     public function addSubCollection(string $requestName): self;
 }
-
