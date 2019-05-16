@@ -25,6 +25,7 @@ Package currently supports https://schema.getpostman.com/json/collection/v2.0.0/
 ```php
 // Include to your test api call method.
 
+...
 $this->postmanApiCall(
     static::getCollectionGenerator(),
     static::getResponseParser(),
@@ -36,6 +37,7 @@ $this->postmanApiCall(
     ['trainer_name' => 'Ash Lee'],
     ['Authentication' => 'Bearer: AuthToken']
 );
+...
 
 public static function getCollectionGenerator(): CollectionGenerator
 {
