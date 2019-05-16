@@ -39,7 +39,7 @@ $this->postmanApiCall(
 );
 ...
 
-public static function getCollectionGenerator(): CollectionGenerator
+public function getCollectionGenerator(): CollectionGenerator
 {
     $collection = new CollectionSchema([
          info' => new InfoSchema([
@@ -56,12 +56,12 @@ public static function getCollectionGenerator(): CollectionGenerator
     return $this->postmanGenerator;
 }
 
-public static function getResponseParser(): ResponseParserInterface
+public function getResponseParser(): ResponseParserInterface
 {
     return new ResponseParser($this->respose);
 }
 
-public static function tearDownAfterClass()
+public function tearDownAfterClass()
 {
     $this->postmanGenerator->generate();
 }
