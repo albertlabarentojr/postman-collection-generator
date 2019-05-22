@@ -102,6 +102,14 @@ $this->postmanApiCall(
                 - [0] ```Create Trainer Successful```
                 - [1] ```Create Trainer Not Found```
                 
+## Upcoming Releases
+### v1.3.0
+- This comes with the backwards-compatible manner of adding Lumen support 
+for generating documentation.
+### v1.4.0
+- We aim to lessen the code when documenting, how about a feature to automatically suggest
+the Example Name, Request Name and Sub-folders Name to your collection?
+                
 ## Releases
 ### v1.2.2
 - Added PostmanGenerator helper [PostmanApiCallTrait](https://github.com/AlbertLabarento/postman-collection-generator/blob/master/src/Traits/PostmanApiCallTrait.php)
