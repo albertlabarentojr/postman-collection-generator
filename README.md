@@ -110,8 +110,16 @@ $this->postmanApiCall(
                 
 ## Upcoming Releases
 ### v1.4.0
+- Will be adding Postman Lumen TestCase to override ```call(...)``` method
+Using the PostmanApiCallTrait we only get the instance of collection generator from the container.
+
+### v2.0.0
+- PostmanGenerator a new Generation. 
 - We aim to lessen the code when documenting, how about a feature to automatically suggest
 the Example Name, Request Name and Sub-folders Name to your collection?
+
+### v2.1.0
+- A reliable Api needs to detect semantic changes automatically for you.
 
 ## Latest Release
 ### v1.3.0
