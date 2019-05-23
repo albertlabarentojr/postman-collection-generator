@@ -44,8 +44,7 @@ public function getCollectionGenerator(): CollectionGenerator
     $collection = new CollectionSchema([
          info' => new InfoSchema([
             'name' => 'Pokemon Api',
-            'description' => 'Gotta catch them all. When you are a developer but loves pokemon.',
-            'schema' => 'https://schema.getpostman.com/json/collection/v2.0.0/docs/index.html'
+            'description' => 'Gotta catch them all. When you are a developer but loves pokemon.'
         ])
     ]);
     

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\PostmanGenerator;
 
 use Closure;
+use Laravel\Lumen\Application;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase as PhpunitTestCase;
@@ -17,6 +18,7 @@ use PostmanGenerator\Schemas\DescriptionSchema;
 use PostmanGenerator\Schemas\InfoSchema;
 use PostmanGenerator\Schemas\RequestSchema;
 use PostmanGenerator\Schemas\ResponseSchema;
+use Psr\Container\ContainerInterface;
 
 abstract class TestCase extends PhpunitTestCase
 {
@@ -28,6 +30,9 @@ abstract class TestCase extends PhpunitTestCase
 
     /** @var string */
     protected $collectionFile = 'collection';
+
+    /** @var \Laravel\Lumen\Application */
+    private $app;
 
     /**
      * Create mock with callback.
@@ -62,6 +67,32 @@ abstract class TestCase extends PhpunitTestCase
         $filepath = \sprintf('%s/%s.json', $directory, $file);
 
         self::assertEquals($expected, \json_decode(\file_get_contents($filepath), true));
+    }
+
+    /**
+     * Assert given abstract is an instance of concrete in the application container.
+     *
+     * @param string $concrete
+     * @param string $abstract
+     *
+     * @return void
+     */
+    protected function assertInstanceInApp(string $concrete, string $abstract): void
+    {
+        self::assertInstanceOf($concrete, $this->getApplication()->get($abstract));
+    }
+
+    /**
+     * Assert the instance of a service from external container.
+     *
+     * @param string $abstract
+     * @param string $concrete
+     *
+     * @return void
+     */
+    protected function assertServiceInstanceOf(string $abstract, string $concrete): void
+    {
+        self::assertInstanceOf($concrete, $this->getApplication()->get($abstract));
     }
 
     /**
@@ -156,6 +187,20 @@ abstract class TestCase extends PhpunitTestCase
         }
 
         return \array_merge($expectedData, $additionalConfig);
+    }
+
+    /**
+     * Get lumen application.
+     *
+     * @return \Laravel\Lumen\Application
+     */
+    protected function getApplication(): Application
+    {
+        if ($this->app !== null) {
+            return $this->app;
+        }
+
+        return $this->app = new Application(__DIR__);
     }
 
     /**

@@ -4,13 +4,17 @@
     "keywords": [
       "postman",
       "postman collection generator",
-      "postman generator"
+      "postman generator",
+      "api",
+      "documentation"
     ],
     "license": "MIT",
     "type": "project",
     "require": {
       "php": ">=7.2",
-        "symfony/filesystem": "^4.2"
+      "symfony/filesystem": "^4.2",
+      "laravel/lumen-framework": "^5.5",
+      "vlucas/phpdotenv": "^3.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.4",
