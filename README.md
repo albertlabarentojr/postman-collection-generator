@@ -7,6 +7,13 @@
 composer require anl/postman-collection-generator
 ```
 
+## Laravel / Lumen
+```php
+// bootstrap/app.php
+
+$app->register(\PostmanGenerator\Bridge\Laravel\PostmanGeneratorServiceProvider);
+```
+
 ## About
 
 You might want to document your api, but wait!... setting up postman collection
