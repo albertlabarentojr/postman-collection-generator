@@ -12,9 +12,7 @@
     "type": "project",
     "require": {
       "php": ">=7.2",
-      "symfony/filesystem": "^4.2",
-      "laravel/lumen-framework": "^5.5",
-      "vlucas/phpdotenv": "^3.3"
+      "symfony/filesystem": "^4.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.4",
@@ -30,6 +28,10 @@
         "Tests\\PostmanGenerator\\": "tests/"
       }
     },
+  "suggest" : {
+    "laravel/lumen-framework": "^5.5",
+    "vlucas/phpdotenv": "^3.3"
+  },
     "minimum-stability": "dev",
     "config": {
       "optimize-autoloader": true
