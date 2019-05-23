@@ -113,7 +113,7 @@ $this->postmanApiCall(
 - We aim to lessen the code when documenting, how about a feature to automatically suggest
 the Example Name, Request Name and Sub-folders Name to your collection?
 
-### Latest Release
+## Latest Release
 ### v1.3.0
 - This comes with the backwards-compatible manner of adding Lumen support 
 for generating documentation.
