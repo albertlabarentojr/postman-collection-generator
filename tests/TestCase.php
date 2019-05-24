@@ -18,7 +18,6 @@ use PostmanGenerator\Schemas\DescriptionSchema;
 use PostmanGenerator\Schemas\InfoSchema;
 use PostmanGenerator\Schemas\RequestSchema;
 use PostmanGenerator\Schemas\ResponseSchema;
-use Psr\Container\ContainerInterface;
 
 abstract class TestCase extends PhpunitTestCase
 {
