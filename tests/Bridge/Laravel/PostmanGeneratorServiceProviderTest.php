@@ -5,7 +5,10 @@ namespace Tests\PostmanGenerator\Bridge\Laravel;
 
 use PostmanGenerator\Bridge\Laravel\PostmanGeneratorServiceProvider;
 use PostmanGenerator\CollectionGenerator;
+use PostmanGenerator\Config;
+use PostmanGenerator\Interfaces\ConfigInterface;
 use PostmanGenerator\Interfaces\GeneratorInterface;
+use PostmanGenerator\Schemas\CollectionSchema;
 use Tests\PostmanGenerator\TestCase;
 
 /**
@@ -27,6 +30,8 @@ final class PostmanGeneratorServiceProviderTest extends TestCase
         $provider->boot();
         $provider->register();
 
+        $this->assertServiceInstanceOf(CollectionSchema::class, CollectionSchema::class);
+        $this->assertServiceInstanceOf(ConfigInterface::class, Config::class);
         $this->assertServiceInstanceOf(GeneratorInterface::class, CollectionGenerator::class);
     }
 }

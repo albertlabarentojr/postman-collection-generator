@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Support\ServiceProvider;
 use PostmanGenerator\CollectionGenerator;
 use PostmanGenerator\Config;
+use PostmanGenerator\Interfaces\ConfigInterface;
 use PostmanGenerator\Interfaces\GeneratorInterface;
 use PostmanGenerator\Schemas\CollectionSchema;
 use PostmanGenerator\Schemas\VariableSchema;
@@ -34,34 +35,45 @@ final class PostmanGeneratorServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/config/postman-generator.php', 'postman-generator');
 
-        $this->app->singleton(GeneratorInterface::class, $this->getGeneratorInstance());
+        $this->app->singleton(CollectionSchema::class, $this->getCollectionSchemaInstance());
+        $this->app->singleton(ConfigInterface::class, $this->getConfigInstance());
+        $this->app->singleton(GeneratorInterface::class, CollectionGenerator::class);
     }
 
     /**
-     * Get generator instance.
+     * Get collection schema instance.
      *
      * @return \Closure
      */
-    private function getGeneratorInstance(): Closure
+    private function getCollectionSchemaInstance(): Closure
     {
-        return function(): GeneratorInterface {
-            return new CollectionGenerator(
-                new CollectionSchema([
-                    'name' => \config('postman-generator.schema.name'),
-                    'description' => \config('postman-generator.schema.description'),
-                    'variable' => [
-                        new VariableSchema([
-                            'key' => 'baseUrl',
-                            'value' => \config('postman-generator.schema.base_url')
-                        ])
-                    ]
-                ]),
-                new Config(
-                    \config('postman-generator.schema.export_directory'),
-                    \config('postman-generator.schema.file_name'),
-                    false,
-                    '{{baseUrl}}'
-                )
+        return function (): CollectionSchema {
+            return new CollectionSchema([
+                'name' => \config('postman-generator.schema.name'),
+                'description' => \config('postman-generator.schema.description'),
+                'variable' => [
+                    new VariableSchema([
+                        'key' => 'baseUrl',
+                        'value' => \config('postman-generator.schema.base_url')
+                    ])
+                ]
+            ]);
+        };
+    }
+
+    /**
+     * Get config instance.
+     *
+     * @return \Closure
+     */
+    private function getConfigInstance(): Closure
+    {
+        return function (): ConfigInterface {
+            return new Config(
+                \config('postman-generator.schema.export_directory'),
+                \config('postman-generator.schema.file_name'),
+                false,
+                '{{baseUrl}}'
             );
         };
     }
