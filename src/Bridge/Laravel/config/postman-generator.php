@@ -31,18 +31,17 @@ return [
     | A collection naming will looks like
     |   Folder - Trainers
     |       Folder - Pokemons
-    |           Request - List Pokemons
+    |           Request - Pokemons
     |               Example - Successful
     |
     | Hence you may wish to override this by.
     | 'GET /trainers/{{trainerId}}/pokemons' => [
     |        [
     |            'status_code' => 200, // required
-    |            'method_name' => 'testList', // required
-    |            'request_name' => 'All Pokemons',
-    |            'example_name' => 'Successul',
-    |            'endpoint_1' => 'Trainers',
-    |            'endpoint' => 'Pokemons' // endpoint_2
+    |            'fragments => [
+    |                   'trainers' => 'Trainers Requests', // override folder name
+    |                   'pokemons' => 'List of Pokemons' // override request name
+    |            ]
     |        ]
     |    ],
     */
