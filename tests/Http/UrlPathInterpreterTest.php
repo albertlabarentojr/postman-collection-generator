@@ -10,7 +10,7 @@ use Tests\PostmanGenerator\TestCase;
 /**
  * @covers \PostmanGenerator\Http\UrlPath
  */
-final class UrlInterpreterTest extends TestCase
+final class UrlPathInterpreterTest extends TestCase
 {
     /**
      * Get fragments from a given resource endpoint.
