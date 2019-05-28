@@ -8,18 +8,6 @@ use PostmanGenerator\Interfaces\HttpUrlPathInterface;
 final class UrlPath implements HttpUrlPathInterface
 {
     /**
-     * Interpret a resource fragment into readable words.
-     *
-     * @param string $fragment
-     *
-     * @return \PostmanGenerator\Http\ResourceData
-     */
-    public function pathToResource(string $fragment): ResourceData
-    {
-        // TODO: Implement fragmentToResource() method.
-    }
-
-    /**
      * Endpoint fragments separated by `/`.
      *
      * @param string $url
@@ -65,5 +53,18 @@ final class UrlPath implements HttpUrlPathInterface
     public function isResourceName(string $fragment): string
     {
         // TODO: Implement isResourceName() method.
+    }
+
+    /**
+     * Interpret a resource fragment into readable words.
+     *
+     * @param string $fragment
+     * @param null|string $httpMethod
+     *
+     * @return \PostmanGenerator\Http\ResourceData
+     */
+    public function pathToResource(string $fragment, ?string $httpMethod = null): ResourceData
+    {
+        // TODO: Implement fragmentToResource() method.
     }
 }

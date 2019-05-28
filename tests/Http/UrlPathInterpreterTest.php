@@ -60,17 +60,21 @@ final class UrlPathInterpreterTest extends TestCase
     /**
      * Test fragment to resource.
      *
+     * @param string $method
      * @param string $path
      * @param \PostmanGenerator\Http\ResourceData $resource
      *
+     * @return void
+     *
      * @dataProvider pathToResourceProvider
      *
-     * @return void
      */
-    public function testPathToResource(string $path, ResourceData $resource): void
+    public function testPathToResource(string $method, string $path, ResourceData $resource): void
     {
-        self::assertEquals((new UrlPath())->pathToResource($path)->getNestedResource(), $resource->getNestedResource());
-        self::assertEquals((new UrlPath())->pathToResource($path)->getResource(), $resource->getResource());
+        $urlPathResource = (new UrlPath())->pathToResource($path, $method);
+
+        self::assertEquals($urlPathResource->getNestedResource(), $resource->getNestedResource());
+        self::assertEquals($urlPathResource->getResource(), $resource->getResource());
     }
 
     /**
@@ -78,7 +82,7 @@ final class UrlPathInterpreterTest extends TestCase
      *
      * @return mixed[]
      */
-    private function getFragmentsProvider(): array
+    public function getFragmentsProvider(): array
     {
         return [
             [
@@ -140,24 +144,25 @@ final class UrlPathInterpreterTest extends TestCase
      *
      * @return mixed[]
      */
-    private function pathToResourceProvider(): array
+    public function pathToResourceProvider(): array
     {
         return [
-            ['/trainers', new ResourceData('Trainers', 'Trainers')],
-            ['/trainers/123', new ResourceData('Trainers', 'Trainer')],
-            ['/trainers/trainerId/create-baby-pokemon', new ResourceData('Trainer', 'Create Baby Pokemon')],
-            ['/trainers/123/pokemons', new ResourceData('Trainers.Pokemons', 'Pokemons')],
-            ['/trainers/123/pokemons/123', new ResourceData('Trainers.Pokemons', 'Pokemon')],
-            ['trainers/123/pokemons/type', new ResourceData('Trainers.PokemonsType', 'PokemonsType')],
-            ['trainers/123/pokemons/grass', new ResourceData('Trainers.PokemonsType', 'Pokemons Type')],
-            ['trainers?name="Ash Lee"', new ResourceData('Trainers.PokemonsType', 'Pokemons Type', 'Filter by Name')],
+            ['GET', '/trainers', new ResourceData('Trainers', 'Trainers')],
+            ['GET', '/trainers/123', new ResourceData('Trainers', 'Trainer')],
+            ['POST', '/trainers/trainerId/create-baby-pokemon', new ResourceData('Trainer', 'Create Baby Pokemon')],
+            ['GET', '/trainers/123/pokemons', new ResourceData('Trainers.Pokemons', 'Pokemons')],
+            ['GET', '/trainers/123/pokemons/123', new ResourceData('Trainers.Pokemons', 'Pokemon')],
+            ['GET', 'trainers/123/pokemons/type', new ResourceData('Trainers.PokemonsType', 'PokemonsType')],
+            ['GET', 'trainers/123/pokemons/grass', new ResourceData('Trainers.PokemonsType', 'Pokemons Type')],
+            ['GET', 'trainers?name="Ash Lee"', new ResourceData('Trainers.PokemonsType', 'Pokemons Type', 'Filter by Name')],
             [
+                'GET',
                 'trainers?offset=1&limit=5',
                 new ResourceData('Trainers.PokemonsType', 'Pokemons Type', 'Paginated Offset by 1 and Limit by 5')
             ],
-            ['trainers?page=1', new ResourceData('Trainers.PokemonsType', 'Pokemons Type', 'Paginated Page by 1')],
-            ['trainers?sort=asc', new ResourceData('Trainers.PokemonsType', 'Pokemons Type', 'Sort Asc')],
-            ['trainers?sort=desc', new ResourceData('Trainers.PokemonsType', 'Pokemons Type', 'Sort Desc')]
+            ['GET', 'trainers?page=1', new ResourceData('Trainers.PokemonsType', 'Pokemons Type', 'Paginated Page by 1')],
+            ['GET', 'trainers?sort=asc', new ResourceData('Trainers.PokemonsType', 'Pokemons Type', 'Sort Asc')],
+            ['GET', 'trainers?sort=desc', new ResourceData('Trainers.PokemonsType', 'Pokemons Type', 'Sort Desc')]
         ];
     }
 }

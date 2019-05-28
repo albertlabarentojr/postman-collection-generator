@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace PostmanGenerator;
 
+use PostmanGenerator\Http\Route;
 use PostmanGenerator\Interfaces\ConfigInterface;
+use PostmanGenerator\Interfaces\RouteInterface;
 
 final class Config implements ConfigInterface
 {
@@ -20,23 +22,31 @@ final class Config implements ConfigInterface
     private $overrideExisting;
 
     /**
+     * @var null|\PostmanGenerator\Interfaces\RouteInterface
+     */
+    private $route;
+
+    /**
      * Config constructor.
      *
      * @param null|string $exportDir
      * @param null|string $filename
      * @param null|bool $overrideExisting
      * @param null|string $baseUrl
+     * @param null|\PostmanGenerator\Interfaces\RouteInterface $route
      */
     public function __construct(
         ?string $exportDir = null,
         ?string $filename = null,
         ?bool $overrideExisting = null,
-        ?string $baseUrl = null
+        ?string $baseUrl = null,
+        ?RouteInterface $route = null
     ) {
         $this->exportDir = $exportDir ?? __DIR__;
         $this->filename = $filename ?? 'postman-collection';
         $this->overrideExisting = $overrideExisting ?? false;
         $this->baseUrl = $baseUrl ?? 'https://example.com/';
+        $this->route = $route ?? new Route();
     }
 
     /**
@@ -67,6 +77,16 @@ final class Config implements ConfigInterface
     public function getFilename(): string
     {
         return $this->filename;
+    }
+
+    /**
+     * Get route configuration as a service.
+     *
+     * @return \PostmanGenerator\Interfaces\RouteInterface
+     */
+    public function getRoute(): RouteInterface
+    {
+        return $this->route;
     }
 
     /**

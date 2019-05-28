@@ -27,6 +27,13 @@ interface ConfigInterface
     public function getFilename(): string;
 
     /**
+     * Get route configuration as a service.
+     *
+     * @return \PostmanGenerator\Interfaces\RouteInterface
+     */
+    public function getRoute(): RouteInterface;
+
+    /**
      * Should existing collection be overridden or create a new one.
      *
      * @return bool

@@ -17,10 +17,11 @@ interface HttpUrlPathInterface
      * Interpret a resource fragment into readable words.
      *
      * @param string $fragment
+     * @param null|string $httpMethod
      *
      * @return \PostmanGenerator\Http\ResourceData
      */
-    public function pathToResource(string $fragment): ResourceData;
+    public function pathToResource(string $fragment, ?string $httpMethod = null): ResourceData;
 
     /**
      * Endpoint fragments separated by `/`.
