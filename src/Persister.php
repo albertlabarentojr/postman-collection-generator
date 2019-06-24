@@ -129,7 +129,7 @@ final class Persister implements PersisterInterface
      */
     private function resolveContent(CollectionSchema $collection): string
     {
-        return \json_encode($this->serializer->serialize($collection));
+        return \json_encode($this->serializer->serialize($collection), \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
     }
 
     /**

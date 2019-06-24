@@ -8,7 +8,7 @@ use PostmanGenerator\Interfaces\ItemSchemaInterface;
 /**
  * @method null|string getDescription()
  * @method self setName(string $name)
- * @method self setDescription(DescriptionSchema $description)
+ * @method self setDescription(\PostmanGenerator\Schemas\DescriptionSchema $description)
  */
 class CollectionItemSchema extends AbstractItemableSchema implements ItemSchemaInterface
 {

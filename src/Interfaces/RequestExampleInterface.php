@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace PostmanGenerator\Interfaces;
 
-use PostmanGenerator\Schemas\RequestSchema;
 use PostmanGenerator\RequestExample;
+use PostmanGenerator\Schemas\RequestSchema;
 
 interface RequestExampleInterface
 {

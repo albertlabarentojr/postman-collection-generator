@@ -20,7 +20,7 @@ interface ItemableCollectionInterface
     /**
      * Get items.
      *
-     * @return \Countable|CollectionSchemaInterface[]
+     * @return \Countable|\PostmanGenerator\Interfaces\CollectionSchemaInterface[]
      */
     public function getItem(): array;
 }

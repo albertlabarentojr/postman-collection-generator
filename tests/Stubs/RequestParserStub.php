@@ -28,7 +28,7 @@ final class RequestParserStub implements RequestParserInterface
      *
      * @return \PostmanGenerator\Schemas\RequestSchema
      */
-    public function parseRequest(): RequestSchema
+    public function parse(): RequestSchema
     {
         return new RequestSchema($this->data);
     }

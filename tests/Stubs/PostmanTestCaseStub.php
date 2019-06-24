@@ -3,22 +3,34 @@ declare(strict_types=1);
 
 namespace Tests\PostmanGenerator\Stubs;
 
+use Laravel\Lumen\Application;
+use Laravel\Lumen\Testing\TestCase;
+use PostmanGenerator\Bridge\Laravel\Lumen\Traits\GeneratePostmanApiCallTrait;
 use PostmanGenerator\CollectionGenerator;
 use PostmanGenerator\Config;
 use PostmanGenerator\Interfaces\ResponseParserInterface;
 use PostmanGenerator\Schemas\CollectionSchema;
 use PostmanGenerator\Schemas\ResponseSchema;
-use PostmanGenerator\Traits\PostmanApiCallTrait;
 
-final class PostmanTestCaseStub
+final class PostmanTestCaseStub extends TestCase
 {
-    use PostmanApiCallTrait;
+    use GeneratePostmanApiCallTrait;
 
     /** @var \PostmanGenerator\CollectionGenerator */
     private $generator;
 
     /** @var \PostmanGenerator\Interfaces\ResponseParserInterface */
     private $responseParser;
+
+    /**
+     * Creates the application.
+     *
+     * Needs to be implemented by subclasses.
+     */
+    public function createApplication()
+    {
+        return $this->app = new Application(__DIR__);
+    }
 
     /**
      * Get collection generator instance.
@@ -57,7 +69,7 @@ final class PostmanTestCaseStub
              *
              * @return \PostmanGenerator\Schemas\ResponseSchema
              */
-            public function parseResponse(): ResponseSchema
+            public function parse(): ResponseSchema
             {
                 return new ResponseSchema();
             }
@@ -90,5 +102,10 @@ final class PostmanTestCaseStub
         $this->responseParser = $responseParser;
 
         return $this;
+    }
+
+    public function testOne(): void
+    {
+        self::assertTrue(true);
     }
 }

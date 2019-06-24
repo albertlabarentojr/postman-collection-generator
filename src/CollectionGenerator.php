@@ -50,11 +50,27 @@ class CollectionGenerator implements GeneratorInterface
      *
      * @param string $collectionName
      *
+     * @param null|mixed[] $config
+     *
+     * @return \PostmanGenerator\Interfaces\CollectionInterface
+     *
+     * @deprecated
+     */
+    public function add(string $collectionName, ?array $config = null): CollectionInterface
+    {
+        return $this->createCollection($collectionName, $config);
+    }
+
+    /**
+     * Create a collection from name.
+     *
+     * @param string $collectionName
+     *
      * @param array|null $config
      *
      * @return \PostmanGenerator\Interfaces\CollectionInterface
      */
-    public function add(string $collectionName, ?array $config = null): CollectionInterface
+    public function createCollection(string $collectionName, ?array $config = null): CollectionInterface
     {
         $collectionNames = \explode('.', $collectionName);
 

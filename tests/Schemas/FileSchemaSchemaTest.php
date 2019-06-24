@@ -33,7 +33,6 @@ class FileSchemaSchemaTest extends SchemaTestCase
      */
     public function testToArray(): void
     {
-
         self::assertEquals((new FileSchema(['content' => 'test-content', 'source' => 'test-source']))->toArray(), [
             'content' => 'test-content',
             'src' => 'test-source'

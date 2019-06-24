@@ -67,12 +67,10 @@ class ResponseSchemaTest extends SchemaTestCase
             'status' => '404 Not Found',
             'code' => 404,
             'name' => 'Restaurant Not Found',
-            '_postman_previewlanguage' => 'json'
+            '_postman_previewlanguage' => 'text'
         ];
 
         $response = new ResponseSchema($data);
-
-        $data['body'] = \json_encode($data['body']);
 
         self::assertEquals($data + ['id' => $response->getResponseId()], $response->toArray());
     }

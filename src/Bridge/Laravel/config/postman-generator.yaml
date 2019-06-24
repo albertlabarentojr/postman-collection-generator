@@ -1,0 +1,21 @@
+info:
+  name: 'Project One'
+  description: 'API documentation for Project One'
+  file_name: 'ProjectOneCollection'
+  base_url: '{{baseUrl}}'
+options:
+  # Include all usages of `call` method in Lumen Test Case in the api documentation.
+  # If set to false, you can use annotations in your tests to include/exclude tests you want documented.
+  auto_include: true
+  # Define where you place your controllers so that the `Folder Name` in Postman will be properly guessed.
+  controller_namespaces:
+    - 'App\Http\Controllers'
+  # Include or exclude http headers from request examples.
+  http_headers:
+    include:
+      - 'accept'
+      - 'authorization'
+      - 'content-type'
+    exclude:
+  # If route calls point to an undefined route, skip and not throw exception.
+  skip_undefined_route: true

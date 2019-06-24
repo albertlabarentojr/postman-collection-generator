@@ -7,16 +7,16 @@ use PostmanGenerator\Exceptions\InvalidModeTypeException;
 
 /**
  * @method null|bool isDisabled()
- * @method null|FileSchema getFile()
- * @method null|FormParameterSchema getFormParameter()
+ * @method null|\PostmanGenerator\Schemas\FileSchema getFile()
+ * @method null|\PostmanGenerator\Schemas\FormParameterSchema getFormParameter()
  * @method null|string getMode()
  * @method null|string getRaw()
- * @method null|UrlSchema getUrl()
+ * @method null|\PostmanGenerator\Schemas\UrlSchema getUrl()
  * @method self setDisabled(bool $disabled)
- * @method self setFile(FileSchema $file)
- * @method self setFormParameter(FormParameterSchema $formParameter)
+ * @method self setFile(\PostmanGenerator\Schemas\FileSchema $file)
+ * @method self setFormParameter(\PostmanGenerator\Schemas\FormParameterSchema $formParameter)
  * @method self setRaw(string $raw)
- * @method self setUrl(UrlSchema $url)
+ * @method self setUrl(\PostmanGenerator\Schemas\UrlSchema $url)
  */
 class RequestBodySchema extends AbstractSchema
 {

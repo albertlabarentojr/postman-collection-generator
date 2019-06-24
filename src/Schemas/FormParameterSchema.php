@@ -5,13 +5,13 @@ namespace PostmanGenerator\Schemas;
 
 /**
  * @method null|string getContentType()
- * @method null|DescriptionSchema getDescription()
+ * @method null|\PostmanGenerator\Schemas\DescriptionSchema getDescription()
  * @method null|bool isDisabled()
  * @method null|string getKey()
  * @method null|string getType()
  * @method null|string getValue()
  * @method self setContentType(string $contentType)
- * @method self setDescription(DescriptionSchema $descriptionObject)
+ * @method self setDescription(\PostmanGenerator\Schemas\DescriptionSchema $descriptionObject)
  * @method self setDisabled(bool $disabled)
  * @method self setKey(string $key)
  * @method self setType(string $type)

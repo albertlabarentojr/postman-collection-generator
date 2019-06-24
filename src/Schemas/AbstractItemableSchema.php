@@ -8,7 +8,7 @@ use PostmanGenerator\Interfaces\ItemableCollectionInterface;
 use PostmanGenerator\Interfaces\ItemSchemaInterface;
 
 /**
- * @method self setItem(CollectionSchemaInterface[] $item)
+ * @method self setItem(\PostmanGenerator\Interfaces\CollectionSchemaInterface[] $item)
  */
 abstract class AbstractItemableSchema extends AbstractSchema implements ItemableCollectionInterface
 {
@@ -71,7 +71,7 @@ abstract class AbstractItemableSchema extends AbstractSchema implements Itemable
     /**
      * Get items.
      *
-     * @return \Countable|CollectionSchemaInterface[]
+     * @return \Countable|\PostmanGenerator\Interfaces\CollectionSchemaInterface[]
      */
     public function getItem(): array
     {

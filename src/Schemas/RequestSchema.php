@@ -6,17 +6,17 @@ namespace PostmanGenerator\Schemas;
 use PostmanGenerator\Exceptions\InvalidRequestMethodException;
 
 /**
- * @method null|DescriptionSchema getDescription()
+ * @method null|\PostmanGenerator\Schemas\DescriptionSchema getDescription()
  * @method null|string getMethod()
- * @method null|UrlSchema getUrl()
- * @method null|AuthSchema getAuth()
- * @method null|HeaderSchema[] getHeader()
- * @method null|RequestBodySchema getBody()
- * @method self setDescription(DescriptionSchema $description)
- * @method self setUrl(UrlSchema $url)
- * @method self setAuth(AuthSchema $auth)
- * @method self setHeader(HeaderSchema $header)
- * @method self setBody(RequestBodySchema $body)
+ * @method null|\PostmanGenerator\Schemas\UrlSchema getUrl()
+ * @method null|\PostmanGenerator\Schemas\AuthSchema getAuth()
+ * @method null|\PostmanGenerator\Schemas\HeaderSchema[] getHeader()
+ * @method null|\PostmanGenerator\Schemas\RequestBodySchema getBody()
+ * @method self setDescription(\PostmanGenerator\Schemas\DescriptionSchema $description)
+ * @method self setUrl(\PostmanGenerator\Schemas\UrlSchema $url)
+ * @method self setAuth(\PostmanGenerator\Schemas\AuthSchema $auth)
+ * @method self setHeader(\PostmanGenerator\Schemas\HeaderSchema $header)
+ * @method self setBody(\PostmanGenerator\Schemas\RequestBodySchema $body)
  */
 class RequestSchema extends AbstractSchema
 {
@@ -89,7 +89,7 @@ class RequestSchema extends AbstractSchema
      */
     public function setMethod(string $method): self
     {
-        if(\in_array($method, self::$methodTypes, true) === false){
+        if (\in_array($method, self::$methodTypes, true) === false) {
             throw new InvalidRequestMethodException(\sprintf('Invalid Request method type: [%s]', $method));
         }
 

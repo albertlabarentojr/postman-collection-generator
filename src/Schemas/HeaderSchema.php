@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace PostmanGenerator\Schemas;
 
 /**
- * @method DescriptionSchema getDescription()
+ * @method \PostmanGenerator\Schemas\DescriptionSchema getDescription()
  * @method bool isDisabled()
  * @method string getKey()
  * @method string getValue()
- * @method self setDescription(DescriptionSchema $descriptionObject)
+ * @method self setDescription(\PostmanGenerator\Schemas\DescriptionSchema $descriptionObject)
  * @method self setDisabled(bool $disabled)
  * @method self setValue(string $value)
  * @method self setKey(string $key)
