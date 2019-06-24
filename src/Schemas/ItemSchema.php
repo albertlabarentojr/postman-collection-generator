@@ -6,11 +6,11 @@ namespace PostmanGenerator\Schemas;
 use PostmanGenerator\Interfaces\ItemSchemaInterface;
 
 /**
- * @method null|RequestSchema getRequest()
- * @method ResponseSchema[] getResponse()
+ * @method null|\PostmanGenerator\Schemas\RequestSchema getRequest()
+ * @method \PostmanGenerator\Schemas\ResponseSchema[] getResponse()
  * @method self setName(string $name)
- * @method self setRequest(RequestSchema $request)
- * @method self setResponse(ResponseSchema[] $responses)
+ * @method self setRequest(\PostmanGenerator\Schemas\RequestSchema $request)
+ * @method self setResponse(\PostmanGenerator\Schemas\ResponseSchema[] $responses)
  */
 class ItemSchema extends AbstractItemableSchema implements ItemSchemaInterface
 {

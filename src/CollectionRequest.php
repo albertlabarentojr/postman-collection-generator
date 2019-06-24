@@ -8,7 +8,6 @@ use PostmanGenerator\Interfaces\RequestExampleInterface;
 use PostmanGenerator\Interfaces\RequestParserInterface;
 use PostmanGenerator\Schemas\CollectionSubItemSchema;
 use PostmanGenerator\Schemas\ItemSchema;
-use PostmanGenerator\Schemas\RequestSchema;
 
 class CollectionRequest implements CollectionRequestInterface
 {

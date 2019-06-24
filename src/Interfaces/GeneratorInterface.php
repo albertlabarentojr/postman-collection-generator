@@ -8,6 +8,17 @@ use PostmanGenerator\Schemas\CollectionSchema;
 interface GeneratorInterface extends Serializable
 {
     /**
+     * Add a collection from name.
+     *
+     * @param string $collectionName
+     *
+     * @param null|mixed[] $config
+     *
+     * @return \PostmanGenerator\Interfaces\CollectionInterface
+     */
+    public function createCollection(string $collectionName, ?array $config = null): CollectionInterface;
+
+    /**
      * Generate collection of objects as array.
      *
      * @return void

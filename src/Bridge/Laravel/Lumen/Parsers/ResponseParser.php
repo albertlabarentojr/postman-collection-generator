@@ -1,14 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace PostmanGenerator\Bridge\Laravel\Lumen;
+namespace PostmanGenerator\Bridge\Laravel\Lumen\Parsers;
 
 use Illuminate\Http\Response;
 use PostmanGenerator\Interfaces\ResponseParserInterface;
-use PostmanGenerator\Schemas\RequestSchema;
 use PostmanGenerator\Schemas\ResponseSchema;
 
-final class LumenResponseParser implements ResponseParserInterface
+final class ResponseParser implements ResponseParserInterface
 {
     /**
      * @var string
@@ -37,10 +36,10 @@ final class LumenResponseParser implements ResponseParserInterface
      *
      * @return \PostmanGenerator\Schemas\ResponseSchema
      */
-    public function parseResponse(): ResponseSchema
+    public function parse(): ResponseSchema
     {
         return new ResponseSchema([
-            'body' => \json_decode($this->response->getContent(), true),
+            'body' => $this->response->getContent(),
             'code' => $this->response->getStatusCode(),
             'name' => $this->name
         ]);

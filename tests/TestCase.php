@@ -18,7 +18,6 @@ use PostmanGenerator\Schemas\DescriptionSchema;
 use PostmanGenerator\Schemas\InfoSchema;
 use PostmanGenerator\Schemas\RequestSchema;
 use PostmanGenerator\Schemas\ResponseSchema;
-use Psr\Container\ContainerInterface;
 
 abstract class TestCase extends PhpunitTestCase
 {
@@ -248,7 +247,7 @@ abstract class TestCase extends PhpunitTestCase
         $requestParser = $this->mock(
             RequestParserInterface::class,
             function (MockInterface $mock) use ($request): void {
-                $mock->shouldReceive('parseRequest')->once()->withNoArgs()->andReturn($request);
+                $mock->shouldReceive('parse')->once()->withNoArgs()->andReturn($request);
             }
         );
 
@@ -256,7 +255,7 @@ abstract class TestCase extends PhpunitTestCase
         $responseParser = $this->mock(
             ResponseParserInterface::class,
             function (MockInterface $mock) use ($response): void {
-                $mock->shouldReceive('parseResponse')->once()->withNoArgs()->andReturn($response);
+                $mock->shouldReceive('parse')->once()->withNoArgs()->andReturn($response);
             }
         );
 
@@ -272,8 +271,7 @@ abstract class TestCase extends PhpunitTestCase
      */
     protected function getResponseParserInstance(?array $data = null)
     {
-        return new class($data) implements ResponseParserInterface
-        {
+        return new class($data) implements ResponseParserInterface {
             /**
              * @var null|mixed[]
              */
@@ -289,7 +287,7 @@ abstract class TestCase extends PhpunitTestCase
              *
              * @return \PostmanGenerator\Schemas\ResponseSchema
              */
-            public function parseResponse(): ResponseSchema
+            public function parse(): ResponseSchema
             {
                 return new ResponseSchema($this->data);
             }

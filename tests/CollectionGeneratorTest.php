@@ -72,7 +72,7 @@ class CollectionGeneratorTest extends TestCase
         $response1 = $this->getResponseParserInstance([
             'name' => 'Create Successful',
             'responseId' => 'id',
-            'originalRequest' => $request->parseRequest()
+            'originalRequest' => $request->parse()
         ]);
         $createPokemon->addExample('Create Successful', $request, $response1);
 
@@ -93,7 +93,7 @@ class CollectionGeneratorTest extends TestCase
         $response2 = $this->getResponseParserInstance([
             'name' => 'Not Found',
             'responseId' => 'id',
-            'originalRequest' => $request->parseRequest()
+            'originalRequest' => $request->parse()
         ]);
 
         $createPokemon2 = $pokemons2->addRequest('Create Pokemon', $request);
@@ -119,10 +119,10 @@ class CollectionGeneratorTest extends TestCase
                             'item' => [
                                 [
                                     'name' => 'Create Pokemon',
-                                    'request' => (new RequestParserStub([]))->parseRequest()->toArray(),
+                                    'request' => (new RequestParserStub([]))->parse()->toArray(),
                                     'response' => [
-                                        (new Serializer())->serialize($response1->parseResponse()),
-                                        (new Serializer())->serialize($response2->parseResponse())
+                                        (new Serializer())->serialize($response1->parse()),
+                                        (new Serializer())->serialize($response2->parse())
                                     ]
                                 ]
                             ],
@@ -154,7 +154,7 @@ class CollectionGeneratorTest extends TestCase
 
         $collectionGenerator->generate();
 
-        $file = \json_decode(\file($this->collectionDir . '/' . $this->collectionFile . '.json')[0], true);
+        $file = \json_decode(\file_get_contents($this->collectionDir . '/' . $this->collectionFile . '.json'), true);
 
         self::assertEquals(
             $this->expectedCollectionArray(

@@ -8,9 +8,9 @@ use PostmanGenerator\Interfaces\PrePopulateInterface;
 
 /**
  * @method null|string getResponseId()
- * @method null|RequestSchema getOriginalRequest()
+ * @method null|\PostmanGenerator\Schemas\RequestSchema getOriginalRequest()
  * @method null|string|int getResponseTime()
- * @method HeaderSchema[] getHeader()
+ * @method \PostmanGenerator\Schemas\HeaderSchema[] getHeader()
  * @method mixed[] getBody()
  * @method null|string getStatus()
  * @method null|int getCode()
@@ -20,14 +20,14 @@ use PostmanGenerator\Interfaces\PrePopulateInterface;
  * @method self setBody(array $body)
  * @method self setStatus(string $status)
  * @method self setCode(int $code)
- * @method self setOriginalRequest(RequestSchema $request)
+ * @method self setOriginalRequest(\PostmanGenerator\Schemas\RequestSchema $request)
  */
 class ResponseSchema extends AbstractSchema implements PrePopulateInterface, ItemSchemaInterface
 {
     private const ID_PREFIX = 'response_';
 
     /** @var string */
-    public const PREVIEW_FORMAT = 'json';
+    public const PREVIEW_FORMAT = 'text';
 
     /** @var mixed[] */
     protected $body;
@@ -35,7 +35,7 @@ class ResponseSchema extends AbstractSchema implements PrePopulateInterface, Ite
     /** @var int */
     protected $code;
 
-    /** @var HeaderSchema[] */
+    /** @var \PostmanGenerator\Schemas\HeaderSchema[] */
     protected $header = [];
 
     /** @var string */
@@ -85,7 +85,7 @@ class ResponseSchema extends AbstractSchema implements PrePopulateInterface, Ite
             'originalRequest' => $this->getOriginalRequest(),
             'responseTime' => $this->getResponseTime(),
             'header' => $this->getHeader(),
-            'body' => \json_encode($this->getBody()),
+            'body' => $this->getBody(),
             'status' => $this->getStatus(),
             'code' => $this->getCode(),
             'name' => $this->getName(),

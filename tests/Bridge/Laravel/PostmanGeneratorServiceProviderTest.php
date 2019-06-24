@@ -27,7 +27,6 @@ final class PostmanGeneratorServiceProviderTest extends TestCase
         $app = $this->getApplication();
         $provider = new PostmanGeneratorServiceProvider($app);
 
-        $provider->boot();
         $provider->register();
 
         $this->assertServiceInstanceOf(CollectionSchema::class, CollectionSchema::class);

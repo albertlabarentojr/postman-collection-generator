@@ -28,8 +28,7 @@ class SerializableStub implements Serializable
      */
     private function getChild(): Serializable
     {
-        return new class() implements Serializable
-        {
+        return new class() implements Serializable {
             /**
              * Serialize object as array.
              *
@@ -52,8 +51,7 @@ class SerializableStub implements Serializable
              */
             private function getGrandChild(): Serializable
             {
-                return new class() implements Serializable
-                {
+                return new class() implements Serializable {
                     /**
                      * Serialize object as array.
                      *

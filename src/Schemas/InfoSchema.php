@@ -36,7 +36,7 @@ class InfoSchema extends AbstractSchema implements PrePopulateInterface
      */
     public function beforeFill(): void
     {
-        $this->postmanId = $this->generateId('postman_collection');
+        $this->postmanId = $this->generateId('postman_collection_');
     }
 
     /**

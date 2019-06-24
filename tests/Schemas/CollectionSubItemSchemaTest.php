@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\PostmanGenerator\Schemas;
 
-use PostmanGenerator\Schemas\ItemSchema;
 use PostmanGenerator\Schemas\CollectionSubItemSchema;
+use PostmanGenerator\Schemas\ItemSchema;
 use Tests\PostmanGenerator\SchemaTestCase;
 
 /**

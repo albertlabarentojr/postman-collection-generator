@@ -12,5 +12,5 @@ interface ResponseParserInterface
      *
      * @return \PostmanGenerator\Schemas\ResponseSchema
      */
-    public function parseResponse(): ResponseSchema;
+    public function parse(): ResponseSchema;
 }

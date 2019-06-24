@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace PostmanGenerator\Schemas;
 
 /**
- * @method null|AuthSchema getAuth()
- * @method null|InfoSchema getInfo()
- * @method VariableSchema[] getVariable()
- * @method self setAuth(AuthSchema $auth)
- * @method self setInfo(InfoSchema $info)
- * @method self setVariable(VariableSchema $variable)
+ * @method null|\PostmanGenerator\Schemas\AuthSchema getAuth()
+ * @method null|\PostmanGenerator\Schemas\InfoSchema getInfo()
+ * @method \PostmanGenerator\Schemas\VariableSchema[] getVariable()
+ * @method self setAuth(\PostmanGenerator\Schemas\AuthSchema $auth)
+ * @method self setInfo(\PostmanGenerator\Schemas\InfoSchema $info)
+ * @method self setVariable(\PostmanGenerator\Schemas\VariableSchema $variable)
  */
 class CollectionSchema extends AbstractItemableSchema
 {

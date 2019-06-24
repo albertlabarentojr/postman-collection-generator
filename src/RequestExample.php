@@ -28,7 +28,7 @@ class RequestExample implements RequestExampleInterface
     public function __construct(ItemSchema $itemObject, RequestParserInterface $request)
     {
         $this->itemObject = $itemObject;
-        $this->originalRequest = $request->parseRequest();
+        $this->originalRequest = $request->parse();
     }
 
     /**
@@ -45,9 +45,9 @@ class RequestExample implements RequestExampleInterface
         RequestParserInterface $requestParser,
         ResponseParserInterface $responseParser
     ): RequestExampleInterface {
-        $this->itemObject->setRequest($requestParser->parseRequest());
+        $this->itemObject->setRequest($requestParser->parse());
 
-        $response = $responseParser->parseResponse();
+        $response = $responseParser->parse();
         $response->fill(['name' => $exampleName]);
         $response->setOriginalRequest($this->originalRequest);
 
