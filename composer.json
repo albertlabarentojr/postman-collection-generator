@@ -22,6 +22,9 @@
     "illuminate/routing": "^5.5",
     "vlucas/phpdotenv": "^3.3"
   },
+  "conflict" : {
+    "symfony/yaml": "<5.0"
+  },
   "autoload": {
     "psr-4": {
       "PostmanGenerator\\": "src/"
